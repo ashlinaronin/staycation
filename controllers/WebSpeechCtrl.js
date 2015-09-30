@@ -57,7 +57,6 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
           // We're done, stop the voice recognition.
           if ($scope.recognizing) {
             recognition.stop();
-            console.log("i stopped");
           }
 
           // Every custom handler needs to apply its scope
