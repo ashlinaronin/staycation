@@ -1,4 +1,4 @@
-var stayCation = angular.module('stayCation', ['ui.router']);
+var stayCation = angular.module('stayCation', ['ui.router', 'multipleDrag', 'multipleSelection']);
 
 stayCation.config(function($stateProvider, $urlRouterProvider) {
 
