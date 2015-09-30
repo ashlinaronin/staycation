@@ -35,7 +35,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
 
       // Do these things when the user has finished talking
       recognition.onresult = function (event) {
-        console.log("i'm on result");
+        // console.log("i'm on result");
 
         var sentence = event.results[0][0].transcript;
         var final = event.results[0].isFinal;
@@ -43,11 +43,11 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
         // Display interim results
         if (!final) {
           $scope.interim = sentence;
-          console.log(sentence);
+          console.log("interim: " + sentence);
         } else {
           $scope.splitChunks(sentence);
           $scope.final = sentence;
-          console.log("final is " + sentence);
+          console.log("final: " + sentence);
 
           // done, stop
           if ($scope.recognizing) {
