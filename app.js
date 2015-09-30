@@ -7,4 +7,12 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
     url:"",
     templateUrl:"partials/home.html"
   });
+
+  // Ashlin's web speech test
+  $stateProvider.state('webspeechtest', {
+    url: "/webspeechtest",
+    templateUrl: "partials/webspeechtest.html",
+    controller: "WebSpeechCtrl"
+  });
+
 });
