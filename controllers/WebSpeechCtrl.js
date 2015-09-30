@@ -1,59 +1,67 @@
 stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
 // thanks to giftawk and google web speech api demo
 
-  $scope.results = "";
-  $scope.transcript = "";
-  $scope.message = "";
-  $scope.interim = "";
-  $scope.chunks = [];
-  $scope.sentenceLength = 0;
-  $scope.final = "";
-  $scope.recognizing = false;
-
-  $scope.splitChunks = function(transcript) {
-    $scope.chunks = transcript.split(/\s/);
-    $scope.sentenceLength = $scope.chunks.length;
-  }
-
-
 
 
 // do stuff here when this partial loads
-  angular.element(document).ready(function () {
+  // angular.element(document).ready(function () {
+
+
+
+    $scope.message = null;
+    $scope.interim = null;
+    $scope.chunks = [];
+    $scope.final = null;
+    $scope.recognizing = false;
+    $scope.testVar = "testvartext";
+    $scope.handler = null;
+
+    $scope.splitChunks = function(transcript) {
+      $scope.chunks = transcript.split(/\s/);
+      $scope.sentenceLength = $scope.chunks.length;
+    }
+
+
 
     if ('webkitSpeechRecognition' in window) {
       var recognition = new webkitSpeechRecognition();
+
+      // We want to see the interim results
       recognition.interimResults = true;
+
 
 
       // Do these things when speech recognition is enabled
       recognition.onstart = function() {
-        console.log("i'm on start");
+
         $('#talk-now').html('Talk now pls');
         $scope.recognizing = true;
+
+        // Every custom event handler needs to apply its scope
+        $scope.$apply();
       };
 
       // Do these things when the user has finished talking
       recognition.onresult = function (event) {
-        // console.log("i'm on result");
-
         var sentence = event.results[0][0].transcript;
         var final = event.results[0].isFinal;
 
         // Display interim results
         if (!final) {
           $scope.interim = sentence;
-          console.log("interim: " + sentence);
+          $scope.$apply();
         } else {
           $scope.splitChunks(sentence);
           $scope.final = sentence;
-          console.log("final: " + sentence);
 
-          // done, stop
+          // We're done, stop the voice recognition.
           if ($scope.recognizing) {
             recognition.stop();
             console.log("i stopped");
           }
+
+          // Every custom handler needs to apply its scope
+          $scope.$apply();
         }
       };
 
@@ -64,11 +72,18 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
         } else {
           $scope.message = "I'm sorry!! Something went wrong.";
         }
+
+        // Every custom event handler needs to apply its scope
+        $scope.$apply();
       };
 
       recognition.onend = function() {
         $scope.recognizing = false;
-        // do more in here
+
+        // do more in here?
+
+        // Every custom event handler needs to apply its scope
+        $scope.$apply();
       };
 
       // Start recognition after defining event handlers
@@ -82,7 +97,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
       window.setTimeout(function() {}, 1000);
     };
 
-  }); // end document ready
+  // }); // end document ready
 
 
 

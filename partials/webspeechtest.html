@@ -1,15 +1,15 @@
-hello ashlin
-
 <h3 id="talk-now"></h3>
 
-<h5>Interim:</h5>
-<p>{{ interim }}</p>
+<p>Error Message: {{ message }}</p>
 
-<h5>Results:</h5>
-<p>{{ results }}</p>
+<p>Interim: {{ interim }}</p>
 
-<h5>Transcript:</h5>
-<p>{{ transcript }}</p>
+<p>Final: {{ final }}</p>
 
-<h5>Message:</h5>
-<p>{{ message }}</p>
+<p>Sentence has {{ chunks.length }} words.</p>
+
+
+
+<ul>
+  <li ng-repeat="word in chunks">{{ word }}</li>
+</ul>
