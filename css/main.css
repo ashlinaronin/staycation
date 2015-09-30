@@ -10,31 +10,43 @@
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: @screen-lg-min) { ... }
 
+/* Font for paragraph */
+@font-face {
+  font-family: 'Cabin';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Cabin Regular'), local('Cabin-Regular'), url(http://fonts.gstatic.com/s/cabin/v7/9QCBVh5lYUzIUw5Y0GO2jqCWcynf_cDxXwCLxiixG1c.ttf) format('truetype');
+}
 
+p {
+    font-family: 'Cabin', sans-serif;
+    color: #EAF9D9;
+    text-shadow: 1px 2px 3px #272635;
+    font-size: 18.25px;
+    line-height: 25px;
+}
+
+/* Font for the maine header and h tags */
 h1, h3 {
+  color: #F7FFF6;
   font-family: 'Lobster', cursive;
   font-weight: 200;
-  text-shadow: 1px 1.25px 3px black;
+  text-shadow: 1px 1.25px 3px #272635;
   font-size: 60px;
   text-align: center;
   margin: auto;
   padding: 16px;
 }
 
-p {
-    font-family: 'Cabin', sans-serif;
-    text-shadow: 1px 1.25px 3px black;
-    font-size: 18.25px;
-    line-height: 25px;
-}
-
+/* Main bacground for the entire application */
 body {
   background-color: #6CC1DD;
-  background-image: url("../images/leaf_1445_p-o.jpg");
-  background-repeat: repeat;
+  background-image: url("../images/bluetrop.jpg");
+  background-repeat: no-repeat;
   background-size: auto;
 }
 
+/* seperate div class in order to place the canvas in when intergration comes together */
 .canvasLayout {
   width: auto;
   height: auto;
@@ -42,7 +54,27 @@ body {
   text-align: center;
 }
 
+
+/* Image tag but mainly focusing on the microphone icon*/
 img {
     max-width: 45%;
     height: auto;
+    image-resolution: snap;
+}
+
+.buttonStuff {
+  text-align: center;
+  padding: 5px;
+}
+
+/* warning tag at the bottom of the page. */
+.footer {
+  color: #F7FFF6;
+  font-family: 'Cabin', sans-serif;
+  font-weight: 100;
+  text-shadow: 1px 1.25px 3px #272635;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 5px;
 }
