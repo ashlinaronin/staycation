@@ -50,13 +50,6 @@ body {
   background-color: blue;
 }
 
-/* Image tag but mainly focusing on the microphone icon*/
-img {
-    max-width: 45%;
-    height: auto;
-    image-resolution: snap;
-}
-
 /* Class for restart button on the page. */
 .buttonStuff {
   text-align: center;
@@ -79,10 +72,16 @@ img {
 .footer {
   color: #F7FFF6;
   font-family: 'Cabin', sans-serif;
-  font-weight: 100;
+  font-weight: 400;
   text-shadow: 1px 2px 3px #272635;
   font-size: 12px;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 5px;
+}
+
+.socialButtons img {
+  width: 3.75%;
+  margin: auto;
+  padding: inherit;
 }
