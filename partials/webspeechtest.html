@@ -8,9 +8,15 @@
 
 <p>Sentence has {{ chunks.length }} words.</p>
 
-
-
 <ul>
-  <!-- track by inde
+  <!-- track by index to avoid error about duplicate values in ng-repeat -->
   <li ng-repeat="word in chunks track by $index">{{ word }}</li>
+</ul>
+
+
+<p>Bg from SpeechFactory is {{ bg }}</p>
+
+<p>Items from SpeechFactory are:</p>
+<ul>
+  <li ng-repeat="item in items track by $index">{{ item }}</li>
 </ul>

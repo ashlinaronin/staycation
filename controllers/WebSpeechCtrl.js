@@ -1,5 +1,11 @@
-stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
+stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, SpeechFactory) {
 // thanks to giftawk and google web speech api demo
+
+  // Connect this WebSpeechCtrl to the SpeechFactory
+  $scope.items = SpeechFactory.items;
+  $scope.bg = SpeechFactory.bg;
+  $scope.SpeechFactory = SpeechFactory;
+
 
   $scope.message = null;
   $scope.interim = null;
@@ -15,6 +21,14 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
     $scope.sentenceLength = $scope.chunks.length;
   }
 
+  $scope.checkForBg = function(chunks) {
+    if (chunks[0] == "go" && chunks[1] == "to") {
+      $scope.bg = chunks.slice(2);
+    } else if (chunks) {
+      $scope.SpeechFactory.addItem($scope.final);
+    }
+  }
+
 
 
   if ('webkitSpeechRecognition' in window) {
@@ -24,7 +38,10 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
     recognition.interimResults = true;
 
     // Continue speech recognition even if user pauses
-    recognition.continuous = true;
+    // recognition.continuous = true;
+
+    // Using American English for now
+    recognition.lang = 'en-US';
 
     // Do these things when speech recognition is enabled
     recognition.onstart = function() {
@@ -49,13 +66,19 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope) {
         $scope.splitChunks(sentence);
         $scope.final = sentence;
 
+        // Check to see if this is a bg or item
+        $scope.checkForBg($scope.chunks);
+
+        // get background into factory
+        // $scope.bg = sentence;
+
         // We've got a final result, clear the interim results.
-        $scope.interim = null;
+        // $scope.interim = null;
 
         // We're done, stop the voice recognition.
-        // if ($scope.recognizing) {
-        //   recognition.stop();
-        // }
+        if ($scope.recognizing) {
+          recognition.stop();
+        }
 
         // Every custom handler needs to apply its scope
         $scope.$apply();
