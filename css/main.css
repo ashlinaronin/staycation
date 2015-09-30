@@ -23,7 +23,7 @@ h1, h3 {
   font-weight: 200;
   text-shadow: 1px 1.25px 3px #272635;
   font-size: 60px;
-  text-align: center;
+  /*text-align: center;*/
   margin: auto;
   padding: 16px;
 }
@@ -38,10 +38,6 @@ body {
 
 /* Where the dislay of the webcam will go within the webpage.*/
 #canvas {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: auto;
-  margin-right: auto;
   display: block;
   width: 768px;
   border: 3px dashed black;
@@ -50,7 +46,7 @@ body {
 
 /* Class for restart button on the page. */
 .buttonStuff {
-  text-align: center;
+  /*text-align: center;*/
   padding-top: 5px;
   padding-bottom: 1em;
 }
@@ -60,7 +56,7 @@ body {
   color: grey;
   font-family: 'Cabin', sans-serif;
   width: 768px;
-  text-align: center;
+  /*text-align: center;*/
   font-size: 20px;
 }
 
@@ -71,7 +67,7 @@ body {
   font-weight: 400;
   text-shadow: 1px 2px 3px #272635;
   font-size: 12px;
-  text-align: center;
+  /*text-align: center;*/
   padding-top: 10px;
   padding-bottom: 5px;
 }
