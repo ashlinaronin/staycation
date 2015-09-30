@@ -1,0 +1,27 @@
+/*#cocozone {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  left: 0;
+  top: 0;
+  border: 1px black;
+}*/
+
+.item_container {
+  position: absolute;
+  border: 1px solid #ccc;
+  padding: 10px;
+  height: 500px;
+  overflow: hidden;
+}
+
+.row {
+  width: 100%;
+}
+
+#coco {
+  position: absolute;
+  cursor: pointer;
+  top: 11px;
+  left: 183px;
+}
