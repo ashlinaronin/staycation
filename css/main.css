@@ -11,7 +11,7 @@
 @media (min-width: @screen-lg-min) { ... }
 
 
-h1 {
+h1, h3 {
   font-family: 'Lobster', cursive;
   font-weight: 200;
   text-shadow: 1px 1.25px 3px black;
@@ -21,10 +21,28 @@ h1 {
   padding: 16px;
 }
 
+p {
+    font-family: 'Cabin', sans-serif;
+    text-shadow: 1px 1.25px 3px black;
+    font-size: 18.25px;
+    line-height: 25px;
+}
+
 body {
   background-color: #6CC1DD;
+  background-image: url("../images/leaf_1445_p-o.jpg");
+  background-repeat: repeat;
+  background-size: auto;
 }
 
 .canvasLayout {
-  background-color: red;
+  width: auto;
+  height: auto;
+  margin: 10px;
+  text-align: center;
+}
+
+img {
+    max-width: 45%;
+    height: auto;
 }
