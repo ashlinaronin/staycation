@@ -43,11 +43,11 @@ body {
 
 /* Where the dislay of the webcam will go within the webpage.*/
 #canvas {
-  text-align: center;
+  /*text-align: center;*/
   /*margin-left: */
-  /*width: auto;*/
-  /*height: auto;*/
-  /*border: 3px dashed black;*/
+  width: 320px;
+  height: 240px;
+  /*border: 1px dashed black;*/
   /*background-color: grey;*/
 
 }
@@ -56,6 +56,12 @@ canvas {
   display: inline;
   width: 320px;
   height: 240px;
+  z-index: -1;
+}
+
+webcam {
+  /*z-index: 1;*/
+  border: 3px dashed black;
 }
 
 #div_start {
