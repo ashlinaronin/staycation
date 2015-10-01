@@ -6,7 +6,7 @@
 stayCation.factory('ImageFactory', function ImageFactory() {
   var factory = {};
 
-  factory.bg = null;
+  factory.bg = "http://guardianlv.com/wp-content/uploads/2014/02/indonesia-volcano-culture-1-650x433.jpg";
   // factory.items = [];
 
   // Preload some dummy items for now

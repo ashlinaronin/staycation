@@ -1,4 +1,10 @@
-stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams) {
+stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams, ImageFactory) {
+
+  // Connect this controller to the ImageFactory
+  $scope.items = ImageFactory.items;
+  $scope.bg = ImageFactory.bg;
+  $scope.ImageFactory = ImageFactory;
+
 
     angular.element(document).ready(function() {
       init();
@@ -25,7 +31,6 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     this.y = y || 0;
     this.w = w || 1;
     this.h = h || 1;
-    // this.url = $scope.propUrl;
     this.img = new Image();
 
     this.img.src = url;
@@ -231,35 +236,35 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
   // You could uncomment this init() reference and place the script reference inside the body tag
   //init();
 
+  //Generate random coordinates for images:
+  function randomX(){
+    var randX = Math.floor((Math.random() * 320) + 1);
+    return randX;
+  }
 
-    // function
-    // var randX = Math.floor((Math.random() * 320) + 1);
-    // var randY = parseInt(Math.floor((Math.random() * 240) + 1));
-
-    console.log(randX);
-    console.log(randY);
+  function randomY(){
+    var randY = Math.floor((Math.random() * 240) + 1);
+    return randY;
+  }
 
   function init() {
     backgroundImg = new Image();
-    backgroundImg.src = "http://www.astonhotels.com/assets/slides/690x380-Hawaii-Turtle.jpg";
+    backgroundImg.src = $scope.bg;
 
 
     var s = new CanvasState(document.getElementById('canvas1'));
-    var orangeUrl = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-glossy-orange-orbs-icons-animals/105025-3d-glossy-orange-orb-icon-animals-animal-fish1.png';
-
-    var pukaUrl = 'http://ecx.images-amazon.com/images/I/41YESooQQJL._SY300_.jpg';
-    var nutUrl = 'http://www.soapsupplier.co.uk/product_images/w/096/Macadamia_Nut_Oil__90265.jpg';
-
+    // var orangeUrl = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-glossy-orange-orbs-icons-animals/105025-3d-glossy-orange-orb-icon-animals-animal-fish1.png';
+    // var pukaUrl = 'http://ecx.images-amazon.com/images/I/41YESooQQJL._SY300_.jpg';
+    // var nutUrl = 'http://www.soapsupplier.co.uk/product_images/w/096/Macadamia_Nut_Oil__90265.jpg';
 
     // loop through items from factory here
-
-    s.addShape(new Shape("orange", 0, 0, 60, 60, orangeUrl));
-    s.addShape(new Shape("puka", 0, 0, 60, 60, pukaUrl));
-    s.addShape(new Shape("nut", 0, 0, 60, 60, nutUrl));
-    console.log(s.shapes);
+    for (var i = 0; i < $scope.items.length; i++){
+      s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+    }
+    // s.addShape(new Shape("orange", randomX(), randomY(), 60, 60, orangeUrl));
+    // s.addShape(new Shape("puka", randomX(), randomY(), 60, 60, pukaUrl));
+    // s.addShape(new Shape("nut", randomX(), randomY(), 60, 60, nutUrl));
+    // console.log(s.shapes);
   }
-
-  // helper function to generate random x and y coordinates
-  //Canvas dimensions: 320x240
 
 })

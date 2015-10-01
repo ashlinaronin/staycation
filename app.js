@@ -14,6 +14,7 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
     url:"/movable-test",
     templateUrl:"partials/movable-test.html",
     controller:"MovablesCtrl"
+  });
 
   // Ashlin's web speech test
   $stateProvider.state('webspeechtest', {
