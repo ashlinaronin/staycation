@@ -45,20 +45,25 @@ body {
 #canvas {
   text-align: center;
   /*margin-left: */
-  width: auto;
-  height: auto;
-  border: 3px dashed black;
-  background-color: grey;
+  /*width: auto;*/
+  /*height: auto;*/
+  /*border: 3px dashed black;*/
+  /*background-color: grey;*/
 
 }
 
 canvas {
   display: inline;
-  width: 640px;
-  height: 480px;
+  width: 320px;
+  height: 240px;
 }
+
 #div_start {
-    float: right;
+  position: relative;
+  margin: 0px;
+  margin-top: -2px;
+  margin-right: -2px;
+
 }
 
 
@@ -67,9 +72,9 @@ canvas {
     font-size: 14px;
     font-weight: bold;
     border: 2px solid #ddd;
-    padding: 15px;
     text-align: left;
-    min-height: 150px;
+    max-width: 320px;
+    min-height: 100px;
 }
 
 /* Class for restart button on the page. */
@@ -79,6 +84,11 @@ canvas {
   padding-bottom: 1em;
 }
 
+button {
+  font-family: 'Lobster';
+  font-style: normal;
+  text-shadow: 1px 1.25px 3px black;
+}
 /* Instructions div */
 .well {
   color: grey;
