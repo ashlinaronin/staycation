@@ -10,7 +10,7 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
       init();
     });
 
-  // This code for movable shapes from:
+  // Most of this code for movable shapes/images from:
   // Simon Sarris
   // www.simonsarris.com
   // sarris@acm.org
@@ -164,23 +164,17 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     if (!this.valid) {
       var ctx = this.ctx;
 
-
-
       // run a query to the imagefactory to update the current shapes area here
       // because all the code in this draw method is run every frame
       // so this is how we get at the current state of the canvas
       // we need to update the shapes array before printing everything in the shapes
       // array to the canvas
 
-
-
       var shapes = this.shapes;
       this.clear();
 
       // ** Add stuff you want drawn in the background all the time here **
       ctx.drawImage(backgroundImg, 0, 0);
-
-
 
       // draw all shapes
       var l = shapes.length;
