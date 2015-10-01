@@ -3,6 +3,8 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
       init();
     });
 
+    var backgroundImg;
+
     // Attempt using multiple-selection and multiple-drag: not currently working in canvas!
 
     // var canvas = document.getElementById("test-canvas");
@@ -147,7 +149,7 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
 
     this.selectionColor = '#CC0000';
     this.selectionWidth = 2;
-    this.interval = 30;
+    this.interval = 5;
     setInterval(function() { myState.draw(); }, myState.interval);
   }
 
@@ -170,6 +172,8 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
       this.clear();
 
       // ** Add stuff you want drawn in the background all the time here **
+      ctx.drawImage(backgroundImg, 0, 0);
+
 
       // draw all shapes
       var l = shapes.length;
@@ -226,7 +230,11 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
   // You could uncomment this init() reference and place the script reference inside the body tag
   //init();
 
+
   function init() {
+    backgroundImg = new Image();
+    backgroundImg.src = "http://www.astonhotels.com/assets/slides/690x380-Hawaii-Turtle.jpg";
+
     var s = new CanvasState(document.getElementById('canvas1'));
     s.addShape(new Shape(40,40,50,50)); // The default is gray
     s.addShape(new Shape(60,140,40,60, 'lightskyblue'));
