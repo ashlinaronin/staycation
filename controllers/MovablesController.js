@@ -232,9 +232,9 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
   //init();
 
 
-    function
-    var randX = Math.floor((Math.random() * 320) + 1);
-    var randY = parseInt(Math.floor((Math.random() * 240) + 1));
+    // function
+    // var randX = Math.floor((Math.random() * 320) + 1);
+    // var randY = parseInt(Math.floor((Math.random() * 240) + 1));
 
     console.log(randX);
     console.log(randY);
@@ -253,9 +253,9 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
 
     // loop through items from factory here
 
-    s.addShape(new Shape("orange", randX, randY, 60, 60, orangeUrl));
-    s.addShape(new Shape("puka", randX, randY, 60, 60, pukaUrl));
-    s.addShape(new Shape("nut", randX, randY, 60, 60, nutUrl));
+    s.addShape(new Shape("orange", 0, 0, 60, 60, orangeUrl));
+    s.addShape(new Shape("puka", 0, 0, 60, 60, pukaUrl));
+    s.addShape(new Shape("nut", 0, 0, 60, 60, nutUrl));
     console.log(s.shapes);
   }
 
