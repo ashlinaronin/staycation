@@ -245,20 +245,12 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     backgroundImg = new Image();
     backgroundImg.src = $scope.bg;
 
-
     var s = new CanvasState(document.getElementById('canvas1'));
-    // var orangeUrl = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-glossy-orange-orbs-icons-animals/105025-3d-glossy-orange-orb-icon-animals-animal-fish1.png';
-    // var pukaUrl = 'http://ecx.images-amazon.com/images/I/41YESooQQJL._SY300_.jpg';
-    // var nutUrl = 'http://www.soapsupplier.co.uk/product_images/w/096/Macadamia_Nut_Oil__90265.jpg';
 
     // loop through items from factory here
     for (var i = 0; i < $scope.items.length; i++){
       s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
     }
-    // s.addShape(new Shape("orange", randomX(), randomY(), 60, 60, orangeUrl));
-    // s.addShape(new Shape("puka", randomX(), randomY(), 60, 60, pukaUrl));
-    // s.addShape(new Shape("nut", randomX(), randomY(), 60, 60, nutUrl));
-    // console.log(s.shapes);
   }
 
 })
