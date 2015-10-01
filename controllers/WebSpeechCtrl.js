@@ -1,10 +1,10 @@
-stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, SpeechFactory) {
+stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFactory) {
 // thanks to giftawk and google web speech api demo
 
-  // Connect this WebSpeechCtrl to the SpeechFactory
-  $scope.items = SpeechFactory.items;
-  $scope.bg = SpeechFactory.bg;
-  $scope.SpeechFactory = SpeechFactory;
+  // Connect this WebSpeechCtrl to the ImageFactory
+  $scope.items = ImageFactory.items;
+  $scope.bg = ImageFactory.bg;
+  $scope.ImageFactory = ImageFactory;
 
 
   $scope.message = null;
@@ -25,7 +25,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, SpeechFact
     if (chunks[0] == "go" && chunks[1] == "to") {
       $scope.bg = chunks.slice(2);
     } else if (chunks) {
-      $scope.SpeechFactory.addItem($scope.final);
+      $scope.ImageFactory.addItem($scope.final);
     }
   }
 

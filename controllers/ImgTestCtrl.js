@@ -1,10 +1,10 @@
-stayCation.controller('ImgTestCtrl', function ImgTestCtrl($scope, GoogleImagesFactory, $http) {
+stayCation.controller('ImgTestCtrl', function ImgTestCtrl($scope, ImageFactory, $http) {
 
-    // Connect to GoogleImagesFactory
-    $scope.backgroundUrl = GoogleImagesFactory.imageUrl;
-    $scope.itemUrl = GoogleImagesFactory.itemUrl;
+    // Connect to ImageFactory
+    $scope.backgroundUrl = ImageFactory.imageUrl;
+    $scope.itemUrl = ImageFactory.itemUrl;
 
-    $scope.GoogleImagesFactory = GoogleImagesFactory;
+    $scope.ImageFactory = ImageFactory;
 
     $scope.results = null;
     $scope.status = null;
