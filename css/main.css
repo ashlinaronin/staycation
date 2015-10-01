@@ -1,3 +1,7 @@
+* {
+    margin: 0;
+    padding: 0;
+}
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: @screen-sm-min) { ... }
@@ -38,7 +42,6 @@ body {
 
 
 /* Where the dislay of the webcam will go within the webpage.*/
-/* 1024 by 768 */
 #canvas {
   text-align: center;
   /*margin-left: */
@@ -53,6 +56,20 @@ canvas {
   display: inline;
   width: 640px;
   height: 480px;
+}
+#div_start {
+    float: right;
+}
+
+
+#results {
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    border: 2px solid #ddd;
+    padding: 15px;
+    text-align: left;
+    min-height: 150px;
 }
 
 /* Class for restart button on the page. */
