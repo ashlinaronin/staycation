@@ -15,3 +15,16 @@
 
 <!-- ################ USING TUTORIAL http://simonsarris.com/blog/510-making-html5-canvas-useful ########### -->
 <canvas id="canvas1" width="768px" height="377px" style="border:1px solid black"></canvas>
+
+
+<!-- <form >
+  <label for="url">Background image url:</label>
+  <input type="text" class="form-control" ng-model="UrlsFactory.backgroundUrl">
+  <button type="submit">Submit</button>
+</form> -->
+<form ng-submit = "UrlsFactory.getPropUrl()">
+  <label for="propUrl">Prop image url:</label>
+  <input type="text" class="form-control" ng-model="UrlsFactory.propUrl">
+  <br>
+  <button type="submit">Submit</button>
+</form>

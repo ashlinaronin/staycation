@@ -1,23 +1,12 @@
-stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams) {
+stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams, UrlsFactory) {
+
+    // $scope.propUrl = propUrl;
+
     angular.element(document).ready(function() {
       init();
     });
 
     var backgroundImg;
-
-    // Attempt using multiple-selection and multiple-drag: not currently working in canvas!
-
-    // var canvas = document.getElementById("test-canvas");
-    // var context = canvas.getContext('2d');
-    // var backgroundImg = new Image();
-    // backgroundImg.onload = function() {
-    //   context.drawImage(backgroundImg, 10, 10);
-    // };
-    // backgroundImg.setAttribute("multiple-selection-item", "");
-    // backgroundImg.setAttribute("multiple-drag-item", "");
-    // backgroundImg.src = "https://cdn2.iconfinder.com/data/icons/bright-food-products/512/lobster-128.png";
-    // console.log(backgroundImg);
-
 
   // This code for movable shapes from:
   // Simon Sarris
@@ -31,7 +20,7 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
 
   // Constructor for Shape objects to hold data for all drawn objects.
   // For now they will just be defined as rectangles.
-  function Shape(x, y, w, h, fill) {
+  function Shape(x, y, w, h, url, img) {
     // This is a very simple and unsafe constructor. All we're doing is checking if the values exist.
     // "x || 0" just means "if there is a value for x, use that. Otherwise use 0."
     // But we aren't checking anything else! We could put "Lalala" for the value of x
@@ -39,13 +28,17 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     this.y = y || 0;
     this.w = w || 1;
     this.h = h || 1;
-    this.fill = fill || '#AAAAAA';
+    this.url = url;
+    this.img = new Image();
+
+    // this.img.src = $scope.propUrl;
   }
 
   // Draws this shape to a given context
   Shape.prototype.draw = function(ctx) {
-    ctx.fillStyle = this.fill;
-    ctx.fillRect(this.x, this.y, this.w, this.h);
+    // ctx.fillStyle = this.fill;
+    // ctx.fillRect(this.x, this.y, this.w, this.h);
+    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
   }
 
   // Determine if a point is inside the shape's bounds
@@ -142,7 +135,7 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     // double click for making new shapes
     canvas.addEventListener('dblclick', function(e) {
       var mouse = myState.getMouse(e);
-      myState.addShape(new Shape(mouse.x - 10, mouse.y - 10, 20, 20, 'rgba(0,255,0,.6)'));
+      myState.addShape(new Shape(mouse.x - 10, mouse.y - 10, 60, 60, 'rgba(0,255,0,.6)'));
     }, true);
 
     // **** Options! ****
@@ -200,7 +193,6 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     }
   }
 
-
   // Creates an object with x and y defined, set to the mouse position relative to the state's canvas
   // If you wanna be super-correct this can be tricky, we have to worry about padding and borders
   CanvasState.prototype.getMouse = function(e) {
@@ -236,13 +228,5 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     backgroundImg.src = "http://www.astonhotels.com/assets/slides/690x380-Hawaii-Turtle.jpg";
 
     var s = new CanvasState(document.getElementById('canvas1'));
-    s.addShape(new Shape(40,40,50,50)); // The default is gray
-    s.addShape(new Shape(60,140,40,60, 'lightskyblue'));
-    // Lets make some partially transparent
-    s.addShape(new Shape(80,150,60,30, 'rgba(127, 255, 212, .5)'));
-    s.addShape(new Shape(125,80,30,80, 'rgba(245, 222, 179, .7)'));
   }
-
-  // Now go make something amazing!
-
 })
