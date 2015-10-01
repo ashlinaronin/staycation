@@ -1,12 +1,8 @@
-stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams, UrlsFactory) {
-
-    // $scope.propUrl = propUrl;
+stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams) {
 
     angular.element(document).ready(function() {
       init();
     });
-
-    var backgroundImg;
 
   // This code for movable shapes from:
   // Simon Sarris
@@ -20,18 +16,19 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
 
   // Constructor for Shape objects to hold data for all drawn objects.
   // For now they will just be defined as rectangles.
-  function Shape(x, y, w, h, url, img) {
+  function Shape(name, x, y, w, h, url) {
     // This is a very simple and unsafe constructor. All we're doing is checking if the values exist.
     // "x || 0" just means "if there is a value for x, use that. Otherwise use 0."
     // But we aren't checking anything else! We could put "Lalala" for the value of x
+    this.name = name;
     this.x = x || 0;
     this.y = y || 0;
     this.w = w || 1;
     this.h = h || 1;
-    this.url = url;
+    // this.url = $scope.propUrl;
     this.img = new Image();
 
-    // this.img.src = $scope.propUrl;
+    this.img.src = url;
   }
 
   // Draws this shape to a given context
@@ -142,7 +139,7 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
 
     this.selectionColor = '#CC0000';
     this.selectionWidth = 2;
-    this.interval = 5;
+    this.interval = 30;
     setInterval(function() { myState.draw(); }, myState.interval);
   }
 
@@ -161,11 +158,23 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
     // if our state is invalid, redraw and validate!
     if (!this.valid) {
       var ctx = this.ctx;
+
+
+
+      // run a query to the imagefactory to update the current shapes area here
+      // because all the code in this draw method is run every frame
+      // so this is how we get at the current state of the canvas
+      // we need to update the shapes array before printing everything in the shapes
+      // array to the canvas
+
+
+
       var shapes = this.shapes;
       this.clear();
 
       // ** Add stuff you want drawn in the background all the time here **
       ctx.drawImage(backgroundImg, 0, 0);
+
 
 
       // draw all shapes
@@ -223,10 +232,34 @@ stayCation.controller('MovablesCtrl', function MovablesCtrl($scope, $stateParams
   //init();
 
 
+    function
+    var randX = Math.floor((Math.random() * 320) + 1);
+    var randY = parseInt(Math.floor((Math.random() * 240) + 1));
+
+    console.log(randX);
+    console.log(randY);
+
   function init() {
     backgroundImg = new Image();
     backgroundImg.src = "http://www.astonhotels.com/assets/slides/690x380-Hawaii-Turtle.jpg";
 
+
     var s = new CanvasState(document.getElementById('canvas1'));
+    var orangeUrl = 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons-256/3d-glossy-orange-orbs-icons-animals/105025-3d-glossy-orange-orb-icon-animals-animal-fish1.png';
+
+    var pukaUrl = 'http://ecx.images-amazon.com/images/I/41YESooQQJL._SY300_.jpg';
+    var nutUrl = 'http://www.soapsupplier.co.uk/product_images/w/096/Macadamia_Nut_Oil__90265.jpg';
+
+
+    // loop through items from factory here
+
+    s.addShape(new Shape("orange", randX, randY, 60, 60, orangeUrl));
+    s.addShape(new Shape("puka", randX, randY, 60, 60, pukaUrl));
+    s.addShape(new Shape("nut", randX, randY, 60, 60, nutUrl));
+    console.log(s.shapes);
   }
+
+  // helper function to generate random x and y coordinates
+  //Canvas dimensions: 320x240
+
 })
