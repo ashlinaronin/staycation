@@ -1,4 +1,4 @@
-var stayCation = angular.module('stayCation', ['ui.router']);
+var stayCation = angular.module('stayCation', ['ui.router', 'webcam']);
 
 stayCation.config(function($stateProvider, $urlRouterProvider) {
 
