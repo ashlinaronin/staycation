@@ -1,4 +1,4 @@
-var stayCation = angular.module('stayCation', ['ui.router', 'satellizer']);
+var stayCation = angular.module('stayCation', ['ui.router']);
 
 stayCation.config(function($stateProvider, $urlRouterProvider) {
 
@@ -9,39 +9,39 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
   });
 });
 
-stayCation.config(function($authProvider) {
-
-    $authProvider.facebook({
-      clientId: '1462842274024569'
-    });
-
-    $authProvider.httpInterceptor = true;
-    $authProvider.withCredentials = true;
-    $authProvider.tokenRoot = null;
-    $authProvider.cordova = false;
-    $authProvider.baseUrl = '/';
-    $authProvider.loginUrl = '/auth/login';
-    $authProvider.signupUrl = '/auth/signup';
-    $authProvider.unlinkUrl = '/auth/unlink/';
-    $authProvider.tokenName = 'token';
-    $authProvider.tokenPrefix = 'satellizer';
-    $authProvider.authHeader = 'Authorization';
-    $authProvider.authToken = 'Bearer';
-    $authProvider.storageType = 'localStorage';
-
-    $authProvider.facebook({
-      url: '/auth/facebook',
-      authorizationEndpoint: 'https://www.facebook.com/v2.3/dialog/oauth',
-      redirectUri: (window.location.origin || window.location.protocol + '//' + window.location.host) + '/',
-      requiredUrlParams: ['display', 'scope'],
-      scope: ['email'],
-      scopeDelimiter: ',',
-      display: 'popup',
-      type: '2.0',
-      popupOptions: { width: 580, height: 400 }
-    });
-
-});
+// stayCation.config(function($authProvider) {
+//
+//     $authProvider.facebook({
+//       clientId: '1462842274024569'
+//     });
+//
+//     $authProvider.httpInterceptor = true;
+//     $authProvider.withCredentials = true;
+//     $authProvider.tokenRoot = null;
+//     $authProvider.cordova = false;
+//     $authProvider.baseUrl = '/';
+//     $authProvider.loginUrl = '/auth/login';
+//     $authProvider.signupUrl = '/auth/signup';
+//     $authProvider.unlinkUrl = '/auth/unlink/';
+//     $authProvider.tokenName = 'token';
+//     $authProvider.tokenPrefix = 'satellizer';
+//     $authProvider.authHeader = 'Authorization';
+//     $authProvider.authToken = 'Bearer';
+//     $authProvider.storageType = 'localStorage';
+//
+//     $authProvider.facebook({
+//       url: '/auth/facebook',
+//       authorizationEndpoint: 'https://www.facebook.com/v2.3/dialog/oauth',
+//       redirectUri: (window.location.origin || window.location.protocol + '//' + window.location.host) + '/',
+//       requiredUrlParams: ['display', 'scope'],
+//       scope: ['email'],
+//       scopeDelimiter: ',',
+//       display: 'popup',
+//       type: '2.0',
+//       popupOptions: { width: 580, height: 400 }
+//     });
+//
+// });
 
 
 // var ngFacebook = angular.module('stayCation', ['ngFacebook'])
