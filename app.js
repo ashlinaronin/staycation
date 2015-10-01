@@ -15,4 +15,11 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
     controller: "WebSpeechCtrl"
   });
 
+  // Ashlin's google image test
+  $stateProvider.state('googleimagestest', {
+    url: "/googleimagestest",
+    templateUrl: "partials/googleimagestest.html",
+    controller: "ImgTestCtrl"
+  });
+
 });

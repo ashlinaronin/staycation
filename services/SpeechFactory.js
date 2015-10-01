@@ -18,6 +18,7 @@ stayCation.factory('SpeechFactory', function SpeechFactory() {
     factory.items.push(
       {
         name: query,
+        url: null,
         xPosition: 0,
         yPosition: 0,
         width: 100,
