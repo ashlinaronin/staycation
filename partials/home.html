@@ -1,2 +1,49 @@
+
 <h1>Hello stayCation!!</h1>
 <a ui-sref="webspeechtest">web test</a>
+
+<div class="row">
+  <div class="col-md-12   ">
+    <div class="homeHeader">
+      <h1>StayCation</h1>
+    </div>
+
+    <!-- This canvas is what the webcam will display -->
+    <div id="canvas" class="center-block">
+
+        <webcam></webcam>
+      <!-- <canvas></canvas> -->
+    </div>
+
+      <div id="results" class="center-block">
+        <div id="div_start" class="text-right">
+          <button id="start_button">
+            <img src="images/mic.gif" alt="Start" id="start_img"/>
+          </button>
+        </div>
+        <span class="final" id="final_span"></span>
+        <span class="interim" id="interim_span"></span>
+      </div>
+
+
+    <!-- Ability to restart the page by clicking this button -->
+    <div class="buttonStuff">
+      <button type="submit" class="btn btn-info" ui-sref="">Save it!</button>
+      <button type="submit" class="btn btn-warning" ui-sref="">Restart</button>
+    </div>
+
+    <div class="footer">
+      <p>This application needs the use of your computer's webcam and microphone in order to work.<br>
+        Please reload the page if you dismissed these options. <br></p>
+
+      <div class="socialButtons">
+        <a href="https://facebook.com"><img src="images/flogo.png" alt="facebooklogo" /></a>
+        <a href="https://twitter.com"><img src="images/tlogo.png" alt="twitterlogo" /></a>
+        <a href="https://instagram.com"><img src="images/ilogo.png" alt="instagramlogo" /></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Center the canvas within the screen with the well.  -->
+<!-- Verify this is the layout we want.  -->
