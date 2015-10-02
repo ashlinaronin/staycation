@@ -13,19 +13,19 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
   $scope.final = null;
   $scope.recognizing = false;
 
-  // Not using this right now-- for testing which handler we're in
-  $scope.handler = null;
 
   $scope.splitChunks = function(transcript) {
     $scope.chunks = transcript.split(/\s/);
     $scope.sentenceLength = $scope.chunks.length;
   }
 
-  $scope.checkForBg = function(chunks) {
+  $scope.sendQuery = function(chunks) {
     if (chunks[0] == "go" && chunks[1] == "to") {
-      $scope.bg = chunks.slice(2);
+      console.log('sending to bg');
+      $scope.ImageFactory.add(chunks.slice(2), 'bg');
     } else if (chunks) {
-      $scope.ImageFactory.addItem($scope.final);
+      console.log('sending to item');
+      $scope.ImageFactory.add($scope.final, 'item');
     }
   }
 
@@ -66,11 +66,10 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
         $scope.splitChunks(sentence);
         $scope.final = sentence;
 
-        // Check to see if this is a bg or item
-        $scope.checkForBg($scope.chunks);
+        // Get urls for this bg or item
+        $scope.sendQuery($scope.chunks);
+        console.log("$scope.chunks is " + $scope.chunks);
 
-        // get background into factory
-        // $scope.bg = sentence;
 
         // We've got a final result, clear the interim results.
         // $scope.interim = null;

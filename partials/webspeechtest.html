@@ -14,9 +14,17 @@
 </ul>
 
 
-<p>Bg from SpeechFactory is {{ bg }}</p>
+<p>Bg from ImageFactory is</p>
+<img ng-src='{{ImageFactory.bg}}'>
 
-<p>Items from SpeechFactory are:</p>
+
+
+
+<p>Items from ImageFactory are:</p>
 <ul>
-  <li ng-repeat="item in items track by $index">{{ item }}</li>
+  <li ng-repeat="item in items track by $index">
+    {{ item.name }}
+    <!-- need to use ng-src so the browser doesn't try to load before angular -->
+    <img ng-src='{{item.url}}'>
+  </li>
 </ul>
