@@ -13,19 +13,18 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
   $scope.final = null;
   $scope.recognizing = false;
 
-
-  $scope.splitChunks = function(transcript) {
-    $scope.chunks = transcript.split(/\s/);
-    $scope.sentenceLength = $scope.chunks.length;
-  }
+  // 
+  // $scope.splitChunks = function(transcript) {
+  //   $scope.chunks = transcript.split(/\s/);
+  // }
 
   $scope.sendQuery = function(chunks) {
     if (chunks[0] == "go" && chunks[1] == "to") {
-      console.log('sending to bg');
       $scope.ImageFactory.add(chunks.slice(2), 'bg');
     } else if (chunks) {
-      console.log('sending to item');
       $scope.ImageFactory.add($scope.final, 'item');
+    } else {
+      $scope.message = 'Some kinda error!';
     }
   }
 
@@ -63,7 +62,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
         $scope.interim = sentence;
         $scope.$apply();
       } else {
-        $scope.splitChunks(sentence);
+        $scope.chunks = sentence.split(/\s/);
         $scope.final = sentence;
 
         // Get urls for this bg or item
