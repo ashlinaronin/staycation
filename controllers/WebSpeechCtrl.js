@@ -6,22 +6,21 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
   $scope.bg = ImageFactory.bg;
   $scope.ImageFactory = ImageFactory;
 
-
+  // These vars are mostly for debugging porpoises
   $scope.message = null;
   $scope.interim = null;
   $scope.chunks = [];
   $scope.final = null;
   $scope.recognizing = false;
 
-  // 
-  // $scope.splitChunks = function(transcript) {
-  //   $scope.chunks = transcript.split(/\s/);
-  // }
 
-  $scope.sendQuery = function(chunks) {
-    if (chunks[0] == "go" && chunks[1] == "to") {
-      $scope.ImageFactory.add(chunks.slice(2), 'bg');
-    } else if (chunks) {
+  $scope.sendQuery = function(sentence) {
+    // Chunk em so we can check for bg/item
+    $scope.chunks = sentence.split(/\s/);
+
+    if ($scope.chunks[0] == "go" && $scope.chunks[1] == "to") {
+      $scope.ImageFactory.add($scope.chunks.slice(2), 'bg');
+    } else if ($scope.chunks) {
       $scope.ImageFactory.add($scope.final, 'item');
     } else {
       $scope.message = 'Some kinda error!';
@@ -62,12 +61,10 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
         $scope.interim = sentence;
         $scope.$apply();
       } else {
-        $scope.chunks = sentence.split(/\s/);
         $scope.final = sentence;
 
         // Get urls for this bg or item
-        $scope.sendQuery($scope.chunks);
-        console.log("$scope.chunks is " + $scope.chunks);
+        $scope.sendQuery(sentence);
 
 
         // We've got a final result, clear the interim results.
