@@ -20,7 +20,6 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
   $scope.sendQuery = function(sentence) {
     // Chunk em so we can check for bg/item
     $scope.chunks = sentence.split(/\s/);
-    $scope.message = 'Searching for word...';
 
     // Keep track of whether or not we've found a background dictation ('go to...')
     var foundBg = false;
@@ -43,7 +42,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
 
     // if we didnt find a bg but we have chunks, add item here
     if (!foundBg && $scope.chunks) {
-     console.log("found item, adding: " + $scope.final);
+     console.log("adding item: " + $scope.final);
      $scope.ImageFactory.add($scope.final, 'item');
    } else {
      $scope.message = 'Some kinda error!';
@@ -76,18 +75,15 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
 
     // Do these things when the user has finished talking
     recognition.onresult = function (event) {
+      // Get index of this sentence relative to all the sentence events
+      // recorded while the user has been on this page
       var sentenceIndex = event.resultIndex;
 
+      // Get sentence from transcript of the most current interim results
       var sentence = event.results[sentenceIndex][0].transcript;
-      var final = event.results[sentenceIndex].isFinal;
-
-
-      var eventArray = event.results[event.resultIndex];
-      console.log("in onresult, eventResultIndex is " + sentenceIndex);
-      console.log("in onresult, eventArray is " + eventArray);
 
       // Display interim results
-      if (!final) {
+      if (!event.results[sentenceIndex].isFinal) {
         $scope.interim = sentence;
         $scope.$apply();
       } else {
@@ -96,7 +92,6 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
 
         // Get urls for this bg or item
         $scope.sendQuery(sentence);
-
 
         // We've got a final result, clear the interim results.
         $scope.interim = null;

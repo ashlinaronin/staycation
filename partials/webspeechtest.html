@@ -1,32 +1,32 @@
 <h3 id="talk-now"></h3>
 
-<p>Error Message: {{ message }}</p>
+<p><strong>Error Message</strong>: {{ message }}</p>
 
-<p>Interim: {{ interim }}</p>
+<p><strong>Interim sentence</strong>: {{ interim }}</p>
 
-<p>Final: {{ final }}</p>
+<p><strong>Final sentence</strong>: {{ final }}</p>
 
-<p>FinalArray: {{ finalArray }}</p>
+<p>This last sentence was {{ chunks.length }} words long.</p>
 
-<p>Sentence has {{ chunks.length }} words.</p>
+<p><strong>Sentences heard so far</strong>: {{ heardSentences }}</p>
 
-<ul>
-  <!-- track by index to avoid error about duplicate values in ng-repeat -->
+
+<!-- track by index to avoid error about duplicate values in ng-repeat -->
+<!-- <ul>
   <li ng-repeat="word in chunks track by $index">{{ word }}</li>
-</ul>
+</ul> -->
 
 
-<p>Bg from ImageFactory is</p>
+<p><strong>Bg from ImageFactory is</strong>:</p>
 <img ng-src='{{ImageFactory.bg}}'>
 
 
 
-
-<p>Items from ImageFactory are:</p>
+<p><strong>Items from ImageFactory are</strong>:</p>
 <ul>
   <li ng-repeat="item in items track by $index">
     {{ item.name }}
     <!-- need to use ng-src so the browser doesn't try to load before angular -->
-    <img ng-src='{{item.url}}'>
+    <img ng-src='{{item.url}}' alt='{{item.name}}'>
   </li>
 </ul>
