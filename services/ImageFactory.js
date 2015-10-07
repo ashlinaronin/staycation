@@ -9,6 +9,8 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
   factory.bg = null;
   factory.items = [];
 
+  // factory.items = [];
+
   // Preload some dummy items for now
   // factory.items = [
   //   {

@@ -1,0 +1,34 @@
+<h1>Movable Items Test:</h1>
+
+<!-- ######################## USING multiple-selection AND multiple-drag ####################-->
+
+<!-- <p>Loading static images into canvas:</p>
+<div multiple-selection-zone>
+  <canvas id="test-canvas" width="300" height="300" style="border:solid 1px"></canvas>
+</div>
+
+<div class="row item-container" multiple-selection-zone id="cocozone">
+  <br><br><br><br><br>
+  <img multiple-selection-item multiple-drag-item class="well item1" id="coco" src="http://pngimg.com/upload/small/coconut_PNG9153.png"/>
+  <br><br><br><br><br>
+</div> -->
+
+<!-- ################ USING TUTORIAL http://simonsarris.com/blog/510-making-html5-canvas-useful ########### -->
+<canvas id="canvas1" width="768px" height="377px" style="border:1px solid black"></canvas>
+
+
+<!-- <form >
+  <label for="url">Background image url:</label>
+  <input type="text" class="form-control" ng-model="UrlsFactory.backgroundUrl">
+  <button type="submit">Submit</button>
+</form> -->
+<form>
+  <label for="propUrl">Prop image url:</label>
+  <input type="text" class="form-control" ng-model="MovablesCtrl.propUrl">
+  <br>
+  <button type="submit">Submit</button>
+</form>
+
+<ul>
+  <li ng-repeat="item in items">{{ item }}</li>
+</ul>

@@ -3,5 +3,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
   $scope.items = ImageFactory.items;
   $scope.bg = ImageFactory.bg;
   $scope.ImageFactory = ImageFactory;
-  
+
+  //Movable "prop" images on canvas.
+
 }); // end controller
