@@ -6,5 +6,10 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state('home', {
     url:"",
     templateUrl:"partials/home.html"
+
+    $stateProvider.state('home', {
+      url:"",
+      templateUrl:"partials/test.html"
+
   });
 });
