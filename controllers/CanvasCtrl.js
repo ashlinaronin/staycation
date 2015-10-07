@@ -170,7 +170,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
 
     this.selectionColor = '#CC0000';
     this.selectionWidth = 2;
-    this.interval = 30;
+    this.interval = 33;
     setInterval(function() { myState.draw(); }, myState.interval);
   }
 
@@ -279,22 +279,21 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
   //   }
   // }
 
-
   // start document ready
   angular.element(document).ready(function() {
 
-    init();
-    function init() {
-      // var backgroundImg = new Image();
-      // backgroundImg.src = $scope.bg;
-
-      var s = new CanvasState(document.getElementById('canvasItem'));
-
-      // loop through items from factory here
-      for (var i = 0; i < $scope.items.length; i++){
-        s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
-      }
-    }
+    // init();
+    // function init() {
+    //   // var backgroundImg = new Image();
+    //   // backgroundImg.src = $scope.bg;
+    //
+    //   var s = new CanvasState(document.getElementById('canvasVid'));
+    //
+    //   // loop through items from factory here
+    //   for (var i = 0; i < $scope.items.length; i++){
+    //     s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+    //   }
+    // }
 
     var errorCallback = function(e) {
       console.log('Reeeejected!', e);
@@ -314,8 +313,15 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
 
       video.addEventListener('play', function() {
         // Every 33 milliseconds copy the video image to the canvas
+
+          var s = new CanvasState($scope.canvas);
+          for (var i = 0; i < $scope.items.length; i++){
+            s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+          }
+        
         setInterval(function() {
-            $scope.context.drawImage(video, 0, 0, 320, 240);
+          $scope.context.drawImage(video, 0, 0, 320, 240);
+
         }, 33);
       }, false);
     }, errorCallback);
