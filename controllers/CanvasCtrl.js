@@ -1,33 +1,16 @@
-stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
+stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, SaveFactory) {
   // Connect this CanvasCtrl to the ImageFactory
   $scope.items = ImageFactory.items;
   $scope.bg = ImageFactory.bg;
   $scope.ImageFactory = ImageFactory;
 
-  // $scope.SaveFactory = SaveFactory;
-  $scope.video = null;
-  $scope.canvas = null;
-  $scope.context = null;
 
-  // These saving-related functions should be accessible from outside the video loop,
-  // so we define them at $scope
-  $scope.O = function(item) {
-    return typeof item == 'object' ? item: document.getElementById(item);
-  };
-
-  $scope.S = function(item) {
-    return $scope.O(item).style;
-  };
-
-  $scope.C = function(item) {
-    return document.getELementByClassName(item);
-  };
-
-  $scope.saveImage = function() {
-    // this should be in the controller but inside of a button handler'
-    $scope.S('myimage').border = '1px solid black';
-    $scope.O('myimage').src = $scope.canvas.toDataURL();
-  }
+  // Connect this CanvasCtrl to the SaveFactory
+  $scope.SaveFactory = SaveFactory;
+  $scope.video = SaveFactory.video;
+  $scope.canvas = SaveFactory.canvas;
+  $scope.context = SaveFactory.context;
+  $scope.videoReady = SaveFactory.videoReady;
 
 
   //Movable "prop" images on canvas.
@@ -43,16 +26,20 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
       // var canvas = document.getElementById('canvasVid');
       // var context = canvas.getContext('2d');
 
-      $scope.video = document.querySelector('video');
-      $scope.canvas = document.getElementById('canvasVid');
-      $scope.context = $scope.canvas.getContext('2d');
+      SaveFactory.video = document.querySelector('video');
+      SaveFactory.canvas = document.getElementById('canvasVid');
+      SaveFactory.context = SaveFactory.canvas.getContext('2d');
+      // console.log("$scope.context is ");
+      // console.dir($scope.context);
 
       video.src = window.URL.createObjectURL(localMediaStream);
+
+      SaveFactory.videoReady = true;
 
       video.addEventListener('play', function() {
         // Every 33 milliseconds copy the video image to the canvas
         setInterval(function() {
-            $scope.context.drawImage(video, 0, 0, 320, 240);
+            SaveFactory.context.drawImage(video, 0, 0, 320, 240);
         }, 33);
       }, false);
     }, errorCallback);
