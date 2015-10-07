@@ -9,7 +9,7 @@
     <script src="app.js"></script>
     <script src="services/ImageFactory.js"></script>
     <script src="controllers/WebSpeechCtrl.js"></script>
-    <script src="controllers/ImgTestCtrl.js"></script>
+    <script src="controllers/CanvasCtrl.js"></script>
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css" media="screen" title="no title" charset="utf-8">
@@ -19,7 +19,11 @@
   </head>
   <body>
     <div class="container">
-      <div ui-view></div>
+      <div ui-view="header"></div>
+      <div ui-view="canvas"></div>
+      <div ui-view="webspeech"></div>
+      <div ui-view="footer"></div>
+
     </div>
   </body>
 </html>

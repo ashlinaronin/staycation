@@ -1,3 +1,8 @@
+// should add a button for stopping speech recognition...
+// but it's difficult to figure out how to access the scope of the
+// webkitSpeechRecognition if statement from the controller on the client.
+
+
 stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFactory) {
 // thanks to giftawk and google web speech api demo
 
@@ -45,7 +50,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
      console.log("adding item: " + $scope.final);
      $scope.ImageFactory.add($scope.final, 'item');
    } else {
-     $scope.message = 'Some kinda error!';
+    $scope.message = 'Empty query!';
    }
   }
 
