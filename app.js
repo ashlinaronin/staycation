@@ -35,6 +35,7 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
     url: "/webspeechtest",
     templateUrl: "partials/webspeechtest.html",
     controller: "WebSpeechCtrl"
+
   });
 
   // Ashlin's google image test

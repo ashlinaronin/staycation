@@ -40,8 +40,6 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
 
   ];
 
-
-
   factory.removeItem = function(item) {
     var indexToRemove = factory.items.indexOf(item);
 
