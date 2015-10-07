@@ -84,6 +84,9 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
         factory.bg = returnedUrl;
       }
     }, function errorCallback (response) {
+      var message = $.parseJSON(response).message;
+      alert(message);
+      console.log("error images is " + response.error);
       alert("error getting google images");
     });
   }

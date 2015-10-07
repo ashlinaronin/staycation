@@ -11,20 +11,43 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
   $scope.interim = null;
   $scope.chunks = [];
   $scope.final = null;
+
+  $scope.heardSentences = [];
+
   $scope.recognizing = false;
 
 
   $scope.sendQuery = function(sentence) {
     // Chunk em so we can check for bg/item
     $scope.chunks = sentence.split(/\s/);
+    $scope.message = 'Searching for word...';
 
-    if ($scope.chunks[0] == "go" && $scope.chunks[1] == "to") {
-      $scope.ImageFactory.add($scope.chunks.slice(2), 'bg');
-    } else if ($scope.chunks) {
-      $scope.ImageFactory.add($scope.final, 'item');
-    } else {
-      $scope.message = 'Some kinda error!';
+    // Keep track of whether or not we've found a background dictation ('go to...')
+    var foundBg = false;
+
+    // Loop through chunks and check for first instance of 'go to'
+    for (var i = 0; i < $scope.chunks.length; i++) {
+      if ($scope.chunks[i] == 'go' && $scope.chunks[i+1] == 'to') {
+
+        // add a space between words
+        var destination = $scope.chunks.slice(i+2).join(' ');
+        console.log('going to: ' + destination);
+        $scope.ImageFactory.add(destination, 'bg');
+
+        // We've found a bg, exit for loop here.
+        // No need to keep looking through the rest of the dictation.
+        foundBg = true;
+        break;
+      }
     }
+
+    // if we didnt find a bg but we have chunks, add item here
+    if (!foundBg && $scope.chunks) {
+     console.log("found item, adding: " + $scope.final);
+     $scope.ImageFactory.add($scope.final, 'item');
+   } else {
+     $scope.message = 'Some kinda error!';
+   }
   }
 
 
@@ -36,7 +59,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
     recognition.interimResults = true;
 
     // Continue speech recognition even if user pauses
-    // recognition.continuous = true;
+    recognition.continuous = true;
 
     // Using American English for now
     recognition.lang = 'en-US';
@@ -53,8 +76,15 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
 
     // Do these things when the user has finished talking
     recognition.onresult = function (event) {
-      var sentence = event.results[0][0].transcript;
-      var final = event.results[0].isFinal;
+      var sentenceIndex = event.resultIndex;
+
+      var sentence = event.results[sentenceIndex][0].transcript;
+      var final = event.results[sentenceIndex].isFinal;
+
+
+      var eventArray = event.results[event.resultIndex];
+      console.log("in onresult, eventResultIndex is " + sentenceIndex);
+      console.log("in onresult, eventArray is " + eventArray);
 
       // Display interim results
       if (!final) {
@@ -62,18 +92,21 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
         $scope.$apply();
       } else {
         $scope.final = sentence;
+        $scope.heardSentences.push(sentence);
 
         // Get urls for this bg or item
         $scope.sendQuery(sentence);
 
 
         // We've got a final result, clear the interim results.
-        // $scope.interim = null;
+        $scope.interim = null;
 
         // We're done, stop the voice recognition.
-        if ($scope.recognizing) {
-          recognition.stop();
-        }
+        // (Now we don't want to stop because it's continuous)
+        // we could stop if user presses a button maybe
+        // if ($scope.recognizing) {
+        //   recognition.stop();
+        // }
 
         // Every custom handler needs to apply its scope
         $scope.$apply();
@@ -81,7 +114,6 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
     };
 
     recognition.onerror = function(event) {
-      console.log("i'm on error");
       if (event.error === "not-allowed") {
         $scope.message = "I'm sorry, what was that?";
       } else {
