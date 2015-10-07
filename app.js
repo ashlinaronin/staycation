@@ -15,9 +15,10 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
         controller: 'CanvasCtrl' },
       'webspeech': {
         templateUrl: 'partials/webspeech.html',
-        controller: 'WebSpeechCtrl' },
+        controller: 'WebSpeechCtrl'},
       'footer': {
-        templateUrl: 'partials/footer.html'
+        templateUrl: 'partials/footer.html',
+        controller: 'FooterCtrl'
       }
     }
   });
