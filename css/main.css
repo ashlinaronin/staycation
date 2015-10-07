@@ -116,6 +116,12 @@ button {
   padding-bottom: 5px;
 }
 
+.stones {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .socialButtons img {
   width: 3.75%;
   margin: auto;
