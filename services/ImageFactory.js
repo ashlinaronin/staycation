@@ -6,39 +6,39 @@
 stayCation.factory('ImageFactory', function ImageFactory($http) {
   var factory = {};
 
-  factory.bg = null;
-  factory.items = [];
-
+  factory.bg = "http://ichef.bbci.co.uk/naturelibrary/images/ic/credit/640x395/m/mo/mountain/mountain_1.jpg";
   // factory.items = [];
 
-  // Preload some dummy items for now
-  // factory.items = [
-  //   {
-  //     name: 'bubble',
-  //     xPosition: 0,
-  //     yPosition: 0,
-  //     width: 60,
-  //     height: 60,
-  //     url: 'http://www.i2clipart.com/cliparts/9/2/6/b/clipart-bubble-926b.png'
-  //   },
-  //   {
-  //     name: 'lei',
-  //     xPosition: 0,
-  //     yPosition: 0,
-  //     width: 60,
-  //     height: 60,
-  //     url: 'http://cfwc21.com/images/Decorations/Lei_Transparent_Flip.gif'
-  //   },
-  //   {
-  //     name: 'surfboard',
-  //     xPosition: 0,
-  //     yPosition: 0,
-  //     width: 60,
-  //     height: 60,
-  //     url: 'http://icons.iconarchive.com/icons/fasticon/surf/128/surfboard-2-icon.png'
-  //   },
+  // factory.items = [];
   //
-  // ];
+  // Preload some dummy items for now
+  factory.items = [
+    {
+      name: 'bubble',
+      xPosition: 0,
+      yPosition: 0,
+      width: 60,
+      height: 60,
+      url: 'http://www.i2clipart.com/cliparts/9/2/6/b/clipart-bubble-926b.png'
+    },
+    {
+      name: 'lei',
+      xPosition: 0,
+      yPosition: 0,
+      width: 60,
+      height: 60,
+      url: 'http://cfwc21.com/images/Decorations/Lei_Transparent_Flip.gif'
+    },
+    {
+      name: 'surfboard',
+      xPosition: 0,
+      yPosition: 0,
+      width: 60,
+      height: 60,
+      url: 'http://icons.iconarchive.com/icons/fasticon/surf/128/surfboard-2-icon.png'
+    },
+
+  ];
 
 
 
