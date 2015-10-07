@@ -100,6 +100,14 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
 
         // We've got a final result, clear the interim results.
         $scope.interim = null;
+        $scope.final = null;
+
+        // Repeat what i just said
+        var u = new SpeechSynthesisUtterance();
+        u.text = sentence;
+        u.lang = 'en-US';
+        u.rate = 1.0;
+        speechSynthesis.speak(u);
 
         // We're done, stop the voice recognition.
         // (Now we don't want to stop because it's continuous)
@@ -128,6 +136,8 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
       $scope.recognizing = false;
 
       // do more in here?
+      // here's a hack to re-start recognition after the preset time limit
+      // recognition.start();
 
       // Every custom event handler needs to apply its scope
       $scope.$apply();
