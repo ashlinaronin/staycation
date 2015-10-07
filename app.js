@@ -1,9 +1,10 @@
 var stayCation = angular.module('stayCation', ['ui.router', 'webcam']);
 
 stayCation.config(function($stateProvider, $urlRouterProvider) {
-
   // new home page that includes multiple controllers
   // change controller for canvas to be whatever you're actually using
+  // the canvas and the webspeech need to have separate controllers
+  // but they can both access the ImageFactory.
   $stateProvider.state('home', {
     url: '',
     views: {

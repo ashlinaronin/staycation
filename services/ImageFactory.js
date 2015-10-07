@@ -91,9 +91,6 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
     });
   }
 
-
-
-
   return factory;
 
 });
