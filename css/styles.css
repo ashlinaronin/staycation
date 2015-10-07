@@ -1,17 +1,11 @@
-/*#cocozone {
-  position: absolute;
-  width: 400px;
-  height: 400px;
-  left: 0;
-  top: 0;
-  border: 1px black;
-}*/
+#canvas {
+  position:relative;
+}
 
+#canvasVid {
+  position:absolute;
+}
 
-
-#canvas1 {
-  border:1px solid black;
-  /*background: url("http://www.astonhotels.com/assets/slides/690x380-Hawaii-Turtle.jpg");
-  background-repeat:no-repeat;*/
-  background-size:cover;
+#canvasItem {
+  position:absolute;
 }

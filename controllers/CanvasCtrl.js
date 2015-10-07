@@ -5,9 +5,9 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
   $scope.ImageFactory = ImageFactory;
 
   //Movable "prop" images on canvas.
-  angular.element(document).ready(function() {
-    init();
-  });
+  // angular.element(document).ready(function() {
+  //   // init();
+  // });
 
   // Most of this code for movable shapes/images from:
   // Simon Sarris
@@ -174,7 +174,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
       this.clear();
 
       // ** Add stuff you want drawn in the background all the time here **
-      ctx.drawImage(backgroundImg, 0, 0);
+      // ctx.drawImage(backgroundImg, 0, 0);
 
       // draw all shapes
       var l = shapes.length;
@@ -241,20 +241,35 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
     return randY;
   }
 
-  function init() {
-    backgroundImg = new Image();
-    backgroundImg.src = $scope.bg;
+  // function init() {
+  //   backgroundImg = new Image();
+  //   backgroundImg.src = $scope.bg;
+  //
+  //   var s = new CanvasState(document.getElementById('canvasVid'));
+  //
+  //   // loop through items from factory here
+  //   for (var i = 0; i < $scope.items.length; i++){
+  //     s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+  //   }
+  // }
 
-    var s = new CanvasState(document.getElementById('canvas1'));
 
-    // loop through items from factory here
-    for (var i = 0; i < $scope.items.length; i++){
-      s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
-    }
-  }
-
-
+  // start document ready
   angular.element(document).ready(function() {
+
+    init();
+    function init() {
+      // var backgroundImg = new Image();
+      // backgroundImg.src = $scope.bg;
+
+      var s = new CanvasState(document.getElementById('canvasItem'));
+
+      // loop through items from factory here
+      for (var i = 0; i < $scope.items.length; i++){
+        s.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+      }
+    }
+
     var errorCallback = function(e) {
       console.log('Reeeejected!', e);
     };
@@ -273,6 +288,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory) {
         }, 33);
       }, false);
     }, errorCallback);
+
 
 
   }); // end document ready
