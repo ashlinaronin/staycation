@@ -8,9 +8,9 @@ stayCation.factory('SaveFactory', function SaveFactory() {
   // var canvas = factory.O('mycanvas');
   // var context = canvas.getContext('2d');
 
-  // factory.video = null;
-  // factory.canvas = null;
-  // factory.context = null;
+  factory.video = null;
+  factory.canvas = null;
+  factory.context = null;
 
   factory.O = function(item) {
     return typeof item == 'object' ? item: document.getElementById(item);

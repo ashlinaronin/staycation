@@ -6,14 +6,12 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
 
 
   // Connect this CanvasCtrl to the SaveFactory
-  $scope.SaveFactory = SaveFactory;
-  $scope.video = SaveFactory.video;
-  $scope.canvas = SaveFactory.canvas;
-  $scope.context = SaveFactory.context;
-  $scope.videoReady = SaveFactory.videoReady;
+  // $scope.SaveFactory = SaveFactory;
+  // $scope.video = SaveFactory.video;
+  // $scope.canvas = SaveFactory.canvas;
+  // $scope.context = SaveFactory.context;
+  // $scope.videoReady = SaveFactory.videoReady;
 
-
-  //Movable "prop" images on canvas.
 
   angular.element(document).ready(function() {
     var errorCallback = function(e) {
@@ -30,7 +28,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
       SaveFactory.canvas = document.getElementById('canvasVid');
       SaveFactory.context = SaveFactory.canvas.getContext('2d');
       // console.log("$scope.context is ");
-      // console.dir($scope.context);
+      // console.dir($scope.video);
 
       video.src = window.URL.createObjectURL(localMediaStream);
 

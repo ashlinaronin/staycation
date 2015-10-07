@@ -11,4 +11,6 @@ stayCation.controller('FooterCtrl', function FooterCtrl($scope, SaveFactory) {
 
   console.log(SaveFactory.videoReady);
 
+  
+
 }); // end controller
