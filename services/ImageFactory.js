@@ -9,8 +9,6 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
   // factory.bg = "http://www.deshow.net/d/file/travel/2009-06/mexico-landscape-581-12.jpg";
   factory.bg = 'images/leaf.jpg';
   // factory.items = [];
-
-  // factory.items = [];
   //
   // Preload some dummy items for now
   factory.items = [

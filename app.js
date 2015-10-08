@@ -1,4 +1,4 @@
-var stayCation = angular.module('stayCation', ['ui.router', 'webcam']);
+var stayCation = angular.module('stayCation', ['ui.router']);
 
 stayCation.config(function($stateProvider, $urlRouterProvider) {
   // new home page that includes multiple controllers
@@ -24,26 +24,26 @@ stayCation.config(function($stateProvider, $urlRouterProvider) {
 
 
   //Path for movable items test page:
-  $stateProvider.state('movable-test', {
-    url:"/movable-test",
-    templateUrl:"partials/movable-test.html",
-    controller:"MovablesCtrl"
-  });
-
-  // Ashlin's web speech test
-  $stateProvider.state('webspeechtest', {
-    url: "/webspeechtest",
-    templateUrl: "partials/webspeechtest.html",
-    controller: "WebSpeechCtrl"
-
-  });
-
-  // Ashlin's google image test
-  $stateProvider.state('googleimagestest', {
-    url: "/googleimagestest",
-    templateUrl: "partials/googleimagestest.html",
-    controller: "ImgTestCtrl"
-
-  });
+  // $stateProvider.state('movable-test', {
+  //   url:"/movable-test",
+  //   templateUrl:"partials/movable-test.html",
+  //   controller:"MovablesCtrl"
+  // });
+  //
+  // // Ashlin's web speech test
+  // $stateProvider.state('webspeechtest', {
+  //   url: "/webspeechtest",
+  //   templateUrl: "partials/webspeechtest.html",
+  //   controller: "WebSpeechCtrl"
+  //
+  // });
+  //
+  // // Ashlin's google image test
+  // $stateProvider.state('googleimagestest', {
+  //   url: "/googleimagestest",
+  //   templateUrl: "partials/googleimagestest.html",
+  //   controller: "ImgTestCtrl"
+  //
+  // });
 
 });
