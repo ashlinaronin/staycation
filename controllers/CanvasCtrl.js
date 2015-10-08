@@ -3,158 +3,113 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
   $scope.items = ImageFactory.items;
   $scope.bg = ImageFactory.bg;
   $scope.ImageFactory = ImageFactory;
+  $scope.tracker = null;
+  $scope.tracking = null;
 
+  $scope.backgroundImg = null;
+  $scope.lastRect = null;
 
-  // $scope.tracker = null;
-  // $scope.video = null;
-  // $scope.canvas = null;
-  // $scope.context = null;
+  // check if a context is tainted
+  $scope.isTainted = function(ctx) {
+    try {
+        var pixel = ctx.getImageData(0, 0, 1, 1);
+        return false;
+    } catch(err) {
+        return (err.code === 18);
+    }
+  }
 
-  SaveFactory.tracker = null;
-  SaveFactory.video = null;
-  SaveFactory.canvas = null;
-  SaveFactory.context = null;
-
-  //Movable "prop" images on canvas.
-
-
-  // Connect this CanvasCtrl to the SaveFactory
-  // $scope.SaveFactory = SaveFactory;
-  // $scope.video = SaveFactory.video;
-  // $scope.canvas = SaveFactory.canvas;
-  // $scope.context = SaveFactory.context;
-  // $scope.videoReady = SaveFactory.videoReady;
-
-
-
-
-
-
-
-
-
-
-  // //Generate random coordinates for images:
-  // function randomX(){
-  //   var randX = Math.floor((Math.random() * 220) + 1);
-  //   return randX;
-  // }
-  //
-  // function randomY(){
-  //   var randY = Math.floor((Math.random() * 160) + 1);
-  //   return randY;
-  // }
 
   angular.element(document).ready(function()
   {
 
+    SaveFactory.video = document.querySelector('video');
+    SaveFactory.canvas = document.getElementById('canvasVid');
+    SaveFactory.context = SaveFactory.canvas.getContext('2d');
 
-    var errorCallback = function(e)
+
+    //instantiate the constructor which passes the target we want to detect
+    $scope.tracker = new tracking.ObjectTracker('face');
+    $scope.tracker.setInitialScale(4);
+    $scope.tracker.setStepSize(1.6);
+    $scope.tracker.setEdgesDensity(0.1);
+
+    var errorCallback = function(error) {
+      console.log(error);
+    }
+
+
+    var canvState = new CanvasState(document.getElementById('canvasVid'));
+    var canvState = new CanvasState(SaveFactory.canvas);
+
+      //read the canvas pixels with our tracker, let the camera run
+    tracking.track('#video', $scope.tracker, { camera: true });
+
+
+    // Add initial items
+    var numItems = $scope.items.length;
+    for (var i = 0; i < $scope.items.length; i++) {
+      canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+    }
+
+    // Set up the background image
+    // will not change to update background here, will need to move it inside a loop
+    // somewhere and check for new bg
+    $scope.backgroundImg = new Image();
+    $scope.backgroundImg.src = $scope.bg;
+
+    //listen for track events
+    $scope.tracker.on('track', function(event)
     {
+      // background is 1st thing drawn
+      SaveFactory.context.drawImage($scope.backgroundImg, 0, 0);
 
-      console.log('Reeeejected!', e);
-    };
+      if ($scope.lastRect) {
+        SaveFactory.context.drawImage(SaveFactory.video, $scope.lastRect.x, $scope.lastRect.y, SaveFactory.canvas.width, SaveFactory.canvas.height, $scope.lastRect.x, $scope.lastRect.y, $scope.lastRect.width, $scope.lastRect.height);
+      }
 
 
+      // video rects are 2nd thing drawn
+      //foreach rectnagle event (times that the rect finds a face) draw the video at that spot
+      event.data.forEach(function(rect)
+      {
+        //we're passing in video and giving the coordinates of where we want to draw on the canvas
+        SaveFactory.context.drawImage(SaveFactory.video, rect.x, rect.y, SaveFactory.canvas.width, SaveFactory.canvas.height, rect.x, rect.y, rect.width, rect.height);
+        $scope.lastRect = rect;
+      });
 
-    navigator.getUserMedia({video: true, audio: true}, function(localMediaStream) {
-      SaveFactory.video = document.querySelector('video');
-      SaveFactory.canvas = document.getElementById('canvasVid');
-      SaveFactory.context = SaveFactory.canvas.getContext('2d');
-      // console.dir(SaveFactory.context);
 
-      SaveFactory.video.src = window.URL.createObjectURL(localMediaStream);
-
-      var canvState = new CanvasState(document.getElementById('canvasVid'));
-      var canvState = new CanvasState(SaveFactory.canvas);
-
-      //instantiate the constructor which passes the target we want to detect
-      // SaveFactory.tracker = new tracking.ObjectTracker("face");
-      // SaveFactory.tracker.setInitialScale(4);
-      // SaveFactory.tracker.setStepSize(2);
-      // SaveFactory.tracker.setEdgesDensity(0.1);
-
-      SaveFactory.videoReady = true;
-
-      SaveFactory.video.addEventListener('play', function() {
-        // Every 33 milliseconds copy the video image to the canvas
-
-        // add initial items
-        var numItems = $scope.items.length;
-        for (var i = 0; i < $scope.items.length; i++) {
+      // Check for new items and add them to the canvas state here before all items are drawn
+      // There may be a more efficient way to do this
+      // Right now we check for new items every time the frame is drawn
+      if ($scope.items.length > numItems) {
+        for (var i = numItems; i < $scope.items.length; i++) {
           canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+          console.log("tainted? " + $scope.isTainted());
         }
 
-        setInterval(function() {
+        // Make sure to update the number of items!
+        numItems = $scope.items.length;
+      }
 
-          // maybe draw bg here
-          // console.dir(SaveFactory.context);
-          var backgroundImg = new Image();
-          backgroundImg.src = $scope.bg;
-
-          // Check for new items and add them to the canvas state here before all items are drawn
-          // There may be a more efficient way to do this
-          // Right now we check for new items every time the frame is drawn
-          if ($scope.items.length > numItems) {
-            for (var i = numItems; i < $scope.items.length; i++) {
-              canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
-            }
-
-            // Make sure to update the number of items!
-            numItems = $scope.items.length;
-          }
-
-          SaveFactory.context.drawImage(SaveFactory.video, 0, 0, 320, 240);
-
-          //Draw images that have been added here.
-          // Disabled clearing in canvas state draw loop because the video is re-writing every time anyway
+      // Draw background and all items
+      // Right now the background is on top of the video, need to figure out which
+      // loop to put it in
+      canvState.draw();
 
 
-          canvState.draw();
-
-          // function init() {
-          //   init();
-
-          // }
-
-        }, 1000 / 24);
-            // loop through shapes from factory here
-            // console.log(canvState.valid);
-
-      }, false);
-    }, errorCallback);
-      //read the canvas pixels with our tracker, let the camera run
-      // tracking.track('#video', SaveFactory.tracker, { camera: true });
 
 
-      //listen for track events
-      // SaveFactory.tracker.on('track', function(event)
-      // {
-      //   console.dir(event);
-      //   //clears the tracking rectangle after each event
-      //   SaveFactory.context.clearRect(0, 0, canvas.width, canvas.height);
-      //
-      //
-      //   //foreach rectnagle event (times that the rect finds a face)
-      //   event.data.forEach(function(rect) {
-      //     // console.dir(context);
-      //     //we're passing in video and giving the coordinates of where we want to draw on the canvas
-      //     SaveFactory.context.drawImage(video, rect.x, rect.y, canvas.width, canvas.height, rect.x, rect.y, rect.width, rect.height);
-      //   });
-      //   // $scope.$apply();
-      // });
+      //clears the tracking rectangle after each event
+      //i.e. we don't save rectangles
+      // SaveFactory.context.clearRect(0, 0, SaveFactory.canvas.width, SaveFactory.canvas.height);
 
-      // video.addEventListener('play', function()
-      // {
-      //   // Every 33 milliseconds copy the video image to the canvas
-      //   setInterval(function()
-      //   {
-      //       context.drawImage(video, 0, 0, 320, 240);
-      //   }, 33);
-      // }, false);
+
+
+
+    // }, errorCallback);
+  }); // end on track
 
   }); // end document ready
-
-
 
 }); // end controller
