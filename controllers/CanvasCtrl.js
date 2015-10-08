@@ -7,6 +7,17 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
   $scope.tracking = null;
 
   $scope.backgroundImg = null;
+  $scope.lastRect = null;
+
+  // check if a context is tainted
+  $scope.isTainted = function(ctx) {
+    try {
+        var pixel = ctx.getImageData(0, 0, 1, 1);
+        return false;
+    } catch(err) {
+        return (err.code === 18);
+    }
+  }
 
 
   angular.element(document).ready(function()
@@ -20,7 +31,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
     //instantiate the constructor which passes the target we want to detect
     $scope.tracker = new tracking.ObjectTracker('face');
     $scope.tracker.setInitialScale(4);
-    $scope.tracker.setStepSize(2);
+    $scope.tracker.setStepSize(1.6);
     $scope.tracker.setEdgesDensity(0.1);
 
     var errorCallback = function(error) {
@@ -50,41 +61,54 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
     //listen for track events
     $scope.tracker.on('track', function(event)
     {
-      //clears the tracking rectangle after each event
-      //i.e. we don't save rectangles
-      SaveFactory.context.clearRect(0, 0, SaveFactory.canvas.width, SaveFactory.canvas.height);
+      // background is 1st thing drawn
+      SaveFactory.context.drawImage($scope.backgroundImg, 0, 0);
+
+      if ($scope.lastRect) {
+        SaveFactory.context.drawImage(SaveFactory.video, $scope.lastRect.x, $scope.lastRect.y, SaveFactory.canvas.width, SaveFactory.canvas.height, $scope.lastRect.x, $scope.lastRect.y, $scope.lastRect.width, $scope.lastRect.height);
+      }
 
 
-
-
-
+      // video rects are 2nd thing drawn
       //foreach rectnagle event (times that the rect finds a face) draw the video at that spot
       event.data.forEach(function(rect)
       {
         //we're passing in video and giving the coordinates of where we want to draw on the canvas
         SaveFactory.context.drawImage(SaveFactory.video, rect.x, rect.y, SaveFactory.canvas.width, SaveFactory.canvas.height, rect.x, rect.y, rect.width, rect.height);
+        $scope.lastRect = rect;
+      });
 
 
-
-        // Check for new items and add them to the canvas state here before all items are drawn
-        // There may be a more efficient way to do this
-        // Right now we check for new items every time the frame is drawn
-        if ($scope.items.length > numItems) {
-          for (var i = numItems; i < $scope.items.length; i++) {
-            canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
-          }
-
-          // Make sure to update the number of items!
-          numItems = $scope.items.length;
+      // Check for new items and add them to the canvas state here before all items are drawn
+      // There may be a more efficient way to do this
+      // Right now we check for new items every time the frame is drawn
+      if ($scope.items.length > numItems) {
+        for (var i = numItems; i < $scope.items.length; i++) {
+          canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+          console.log("tainted? " + $scope.isTainted());
         }
 
-        // Draw background and all items
-        // Right now the background is on top of the video, need to figure out which
-        // loop to put it in
-        canvState.draw($scope.backgroundImg);
+        // Make sure to update the number of items!
+        numItems = $scope.items.length;
+      }
+
+      // Draw background and all items
+      // Right now the background is on top of the video, need to figure out which
+      // loop to put it in
+      canvState.draw();
 
 
-      });
+
+
+      //clears the tracking rectangle after each event
+      //i.e. we don't save rectangles
+      // SaveFactory.context.clearRect(0, 0, SaveFactory.canvas.width, SaveFactory.canvas.height);
+
+
+
+
+
+
 
 
     // }, errorCallback);

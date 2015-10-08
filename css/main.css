@@ -49,6 +49,7 @@ body {
   height: 240px;
   /*border: 1px dashed black;*/
   /*background-color: grey;*/
+  z-index: 3;
 
 }
 
@@ -126,4 +127,10 @@ button {
   width: 3.75%;
   margin: auto;
   padding: inherit;
+}
+
+#canvasVid {
+  position: absolute;
+  top: 98px;
+  z-index: 1;
 }

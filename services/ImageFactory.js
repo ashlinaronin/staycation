@@ -6,7 +6,8 @@
 stayCation.factory('ImageFactory', function ImageFactory($http) {
   var factory = {};
 
-  factory.bg = "http://ichef.bbci.co.uk/naturelibrary/images/ic/credit/640x395/m/mo/mountain/mountain_1.jpg";
+  // factory.bg = "http://www.deshow.net/d/file/travel/2009-06/mexico-landscape-581-12.jpg";
+  factory.bg = 'images/leaf.jpg';
   // factory.items = [];
 
   // factory.items = [];
