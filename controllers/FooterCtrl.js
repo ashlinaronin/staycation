@@ -27,11 +27,13 @@ stayCation.controller('FooterCtrl', function FooterCtrl($scope, SaveFactory) {
             {
                method: 'feed',
                name: 'My Staycation',
-               picture: $scope.imageUrl,
+               picture: SaveFactory.imageUrl,
                description: 'My staycation',
             });
         });
     });
+
+    console.log(SaveFactory.imageUrl);
 
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];

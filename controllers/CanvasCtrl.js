@@ -109,12 +109,8 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
 
 
 
-
-
-
-
     // }, errorCallback);
-    });
+  }); // end on track
 
   }); // end document ready
 

@@ -41,8 +41,8 @@ stayCation.factory('SaveFactory', function SaveFactory() {
 
     factory.O('myimage').src = dataURL;
 
-    factory.imageUrl = dataURL;
-
+    factory.imageUrl = myimage;
+    console.log(factory.imageUrl);
   };
 
 

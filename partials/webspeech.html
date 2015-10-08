@@ -1,14 +1,14 @@
-<div id="results" class="center-block">
-  <div id="div_start" class="text-right">
+<div id="results" class="center-block finalType">
+  <!-- <div id="div_start" class="text-right">
     <button id="start_button">
       <img src="images/mic.gif" alt="Start" id="start_img"/>
     </button>
-  </div>
+  </div> -->
   <span class="final" id="final_span">{{ final }}</span>
   <span class="interim" id="interim_span">{{ interim }}</span>
 </div>
 
-<!-- 
+<!--
 <h5 id="talk-now"></h5> -->
 
 <!-- this stuff can be deleted, just for testing and confirmation -->
@@ -28,8 +28,14 @@
 <p><strong>Items from ImageFactory are</strong>:</p>
 <ul>
   <li ng-repeat="item in items track by $index">
+<<<<<<< HEAD
+    {{ item.name }}
+    <!- need to use ng-src so the browser doesn't try to load before angular
+    <img ng-src='{{item.url}}' alt='{{item.name}}'>
+=======
     {{ item.name }} -->
     <!-- need to use ng-src so the browser doesn't try to load before angular -->
     <!-- <img ng-src='{{item.url}}' alt='{{item.name}}'>
+>>>>>>> 68a11518c0f736ca02af240bba48a221a51c71df
   </li>
 </ul> -->
