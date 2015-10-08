@@ -29,12 +29,21 @@ stayCation.factory('SaveFactory', function SaveFactory() {
     // console.dir(factory.canvas);
     console.log(factory.videoReady);
 
-    // var myimg = ('myimage');
-    // console.dir('myimage');
+    var canvas = document.createElement("canvas");
+    var dataURL = factory.canvas.toDataURL( "image/png" );
+    var data = atob( dataURL.substring( "data:image/png;base64,".length)),
+      asArray = new Uint8Array(data.length);
+
+    for(var i = 0, len = data.length; i < len; ++i) {
+      asArray[i] = data.charCodeAt(i);
+    }
+
+    var blob = new Blob( [ asArray.buffer ], {type: "image/png"});
+
     factory.S('myimage').border = '1px solid black';
-    var dataURL = factory.canvas.toDataURL();
+
     factory.O('myimage').src = dataURL;
-    // 
+    //
     // var dataString = dataURL.split(",")[1];
     // var buffer =
   };
