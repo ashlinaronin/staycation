@@ -5,11 +5,13 @@ stayCation.controller('FooterCtrl', function FooterCtrl($scope, SaveFactory) {
   $scope.canvas = SaveFactory.canvas;
   $scope.context = SaveFactory.context;
   $scope.videoReady = SaveFactory.videoReady;
+  $scope.imageUrl = SaveFactory.imageUrl;
 
   // console.log("$scope.context in FooterCtrl is:");
   // console.log($scope.context);
 
   console.log(SaveFactory.videoReady);
+  console.log($scope.imageUrl);
 
   // Facebook
   window.fbAsyncInit = function() {
@@ -27,7 +29,7 @@ stayCation.controller('FooterCtrl', function FooterCtrl($scope, SaveFactory) {
             {
                method: 'feed',
                name: 'My Staycation',
-               picture: 'http://slummysinglemummy.com/wp-content/uploads/2015/01/awesomely-cute-kitten-1500.jpg',
+               picture: $scope.imageUrl,
                description: 'My staycation',
             });
         });
