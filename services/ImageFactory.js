@@ -115,30 +115,30 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
 
     // Temporarily disable Google Images so we don't hit API limit
     // Run the API GET request and save the url
-    $http.get(getReq).then(function successCallback (response) {
-      returnedUrl = response.data.items[0].link;
-
-
-
-      if (type == 'item') {
-        factory.items.push( { name: query, url: returnedUrl } );
-      } else if (type == 'bg') {
-        factory.bg = returnedUrl;
-      }
-    }, function errorCallback (response) {
-      alert("Error getting Google images -- " +
-        response.data.error.code + ': ' +
-        response.data.error.errors[0].message);
-
-    });
+    // $http.get(getReq).then(function successCallback (response) {
+    //   returnedUrl = response.data.items[0].link;
+    //
+    //
+    //
+    //   if (type == 'item') {
+    //     factory.items.push( { name: query, url: returnedUrl } );
+    //   } else if (type == 'bg') {
+    //     factory.bg = returnedUrl;
+    //   }
+    // }, function errorCallback (response) {
+    //   alert("Error getting Google images -- " +
+    //     response.data.error.code + ': ' +
+    //     response.data.error.errors[0].message);
+    //
+    // });
 
 
     // Fake urls version
-    // if (type == 'item') {
-    //   factory.items.push({name: query, url: 'http://33.media.tumblr.com/avatar_6f0b931dc565_128.png'});
-    // } else if (type == 'bg') {
-    //   factory.bg = 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178299/Portland-20917.jpg';
-    // }
+    if (type == 'item') {
+      factory.items.push({name: query, url: 'http://33.media.tumblr.com/avatar_6f0b931dc565_128.png'});
+    } else if (type == 'bg') {
+      factory.bg = 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178299/Portland-20917.jpg';
+    }
 
   }
 
