@@ -32,8 +32,14 @@ stayCation.factory('SaveFactory', function SaveFactory() {
     // var myimg = ('myimage');
     // console.dir('myimage');
     factory.S('myimage').border = '1px solid black';
-    factory.O('myimage').src = factory.canvas.toDataURL();
+    var dataURL = factory.canvas.toDataURL();
+    factory.O('myimage').src = dataURL;
+    // 
+    // var dataString = dataURL.split(",")[1];
+    // var buffer =
   };
+
+
 
   return factory;
 
