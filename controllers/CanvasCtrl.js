@@ -22,7 +22,6 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
 
   angular.element(document).ready(function()
   {
-
     SaveFactory.video = document.querySelector('video');
     SaveFactory.canvas = document.getElementById('canvasVid');
     SaveFactory.context = SaveFactory.canvas.getContext('2d');
@@ -57,6 +56,8 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
     // somewhere and check for new bg
     $scope.backgroundImg = new Image();
     $scope.backgroundImg.src = $scope.bg;
+
+    console.dir(SaveFactory.context);
 
     //listen for track events
     $scope.tracker.on('track', function(event)
@@ -98,7 +99,8 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
       canvState.draw();
 
 
-
+      // after every drawingness, is it clean?
+      // console.dir(SaveFactory.context);
 
       //clears the tracking rectangle after each event
       //i.e. we don't save rectangles

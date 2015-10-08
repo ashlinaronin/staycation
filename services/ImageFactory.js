@@ -9,6 +9,9 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
   // factory.bg = "http://www.deshow.net/d/file/travel/2009-06/mexico-landscape-581-12.jpg";
   factory.bg = 'images/leaf.jpg';
   // factory.items = [];
+
+
+  // factory.tainted = null;
   //
   // Preload some dummy items for now
   factory.items = [
@@ -38,6 +41,42 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
     },
 
   ];
+
+
+  //
+  // factory.isCorsCompliant = function(src) {
+  //   // Create a temporary canvas to test CORS
+  //   var tmpCanvas = document.createElement("canvas");
+  //   var tmpCtx = tmpCanvas.getContext("2d");
+  //   tmpCanvas.width = 1;
+  //   tmpCanvas.height = 1;
+  //
+  //   var testImg = new Image();
+  //   testImg.tainted = null;
+  //
+  //   // Set the cross-origin flag to anonymous
+  //   testImg.setAttribute('crossOrigin', 'anonymous');
+  //   testImg.onload = function() {
+  //     // Initialize tainted to true
+  //     testImg.tainted = true;
+  //     tmpCtx.drawImage(testImg, 0, 0);
+  //
+  //     // Try to violate CORS
+  //     var i = tmpCtx.getImageData(1, 1, 1, 1);
+  //
+  //     // If we get here, CORS is ok so set tainted = false
+  //     // return false;
+  //     testImg.tainted = false;
+  //     // return tainted;
+  //   };
+  //
+  //   testImg.src = src;
+  //
+  //   return (testImg);
+  // }
+
+
+
 
   factory.removeItem = function(item) {
     var indexToRemove = factory.items.indexOf(item);
@@ -76,28 +115,30 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
 
     // Temporarily disable Google Images so we don't hit API limit
     // Run the API GET request and save the url
-    // $http.get(getReq).then(function successCallback (response) {
-    //   returnedUrl = response.data.items[0].link;
-    //
-    //   if (type == 'item') {
-    //     factory.items.push( { name: query, url: returnedUrl } );
-    //   } else if (type == 'bg') {
-    //     factory.bg = returnedUrl;
-    //   }
-    // }, function errorCallback (response) {
-    //   alert("Error getting Google images -- " +
-    //     response.data.error.code + ': ' +
-    //     response.data.error.errors[0].message);
-    //
-    // });
+    $http.get(getReq).then(function successCallback (response) {
+      returnedUrl = response.data.items[0].link;
+
+
+
+      if (type == 'item') {
+        factory.items.push( { name: query, url: returnedUrl } );
+      } else if (type == 'bg') {
+        factory.bg = returnedUrl;
+      }
+    }, function errorCallback (response) {
+      alert("Error getting Google images -- " +
+        response.data.error.code + ': ' +
+        response.data.error.errors[0].message);
+
+    });
 
 
     // Fake urls version
-    if (type == 'item') {
-      factory.items.push({name: query, url: 'http://33.media.tumblr.com/avatar_6f0b931dc565_128.png'});
-    } else if (type == 'bg') {
-      factory.bg = 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178299/Portland-20917.jpg';
-    }
+    // if (type == 'item') {
+    //   factory.items.push({name: query, url: 'http://33.media.tumblr.com/avatar_6f0b931dc565_128.png'});
+    // } else if (type == 'bg') {
+    //   factory.bg = 'https://images.trvl-media.com/media/content/shared/images/travelguides/destination/178299/Portland-20917.jpg';
+    // }
 
   }
 

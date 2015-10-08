@@ -10,8 +10,6 @@ stayCation.controller('FooterCtrl', function FooterCtrl($scope, SaveFactory) {
   // console.log("$scope.context in FooterCtrl is:");
   // console.log($scope.context);
 
-  console.log(SaveFactory.videoReady);
-  console.log($scope.imageUrl);
 
   // Facebook
   window.fbAsyncInit = function() {
