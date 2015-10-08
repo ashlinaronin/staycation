@@ -78,17 +78,38 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
 
       SaveFactory.video.addEventListener('play', function() {
         // Every 33 milliseconds copy the video image to the canvas
+
+        // add initial items
+        var numItems = $scope.items.length;
+        for (var i = 0; i < $scope.items.length; i++) {
+          canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+        }
+
         setInterval(function() {
 
           // maybe draw bg here
           // console.dir(SaveFactory.context);
-            var backgroundImg = new Image();
-            backgroundImg.src = $scope.bg;
+          var backgroundImg = new Image();
+          backgroundImg.src = $scope.bg;
+
+          // Check for new items and add them to the canvas state here before all items are drawn
+          // There may be a more efficient way to do this
+          // Right now we check for new items every time the frame is drawn
+          if ($scope.items.length > numItems) {
+            for (var i = numItems; i < $scope.items.length; i++) {
+              canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
+            }
+
+            // Make sure to update the number of items!
+            numItems = $scope.items.length;
+          }
 
           SaveFactory.context.drawImage(SaveFactory.video, 0, 0, 320, 240);
 
           //Draw images that have been added here.
           // Disabled clearing in canvas state draw loop because the video is re-writing every time anyway
+
+
           canvState.draw();
 
           // function init() {
@@ -99,9 +120,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
         }, 1000 / 24);
             // loop through shapes from factory here
             console.log(canvState.valid);
-            for (var i = 0; i < $scope.items.length; i++) {
-              canvState.addShape(new Shape(($scope.items[i].name), randomX(), randomY(), 60, 60, ($scope.items[i].url)));
-            }
+
       }, false);
     }, errorCallback);
       //read the canvas pixels with our tracker, let the camera run
