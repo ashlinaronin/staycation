@@ -26,8 +26,6 @@ stayCation.factory('SaveFactory', function SaveFactory() {
 
   factory.saveImage = function() {
     // this should be in the controller but inside of a button handler'
-    // console.dir(factory.canvas);
-    // console.log(factory.videoReady);
 
     var canvas = document.createElement("canvas");
     var dataURL = factory.canvas.toDataURL( "image/png" );
@@ -44,8 +42,8 @@ stayCation.factory('SaveFactory', function SaveFactory() {
 
     factory.O('myimage').src = dataURL;
 
-    factory.imageUrl = dataURL;
-
+    factory.imageUrl = myimage;
+    console.log(factory.imageUrl);
   };
 
 

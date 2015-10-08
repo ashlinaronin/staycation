@@ -10,6 +10,7 @@ stayCation.controller('FooterCtrl', function FooterCtrl($scope, SaveFactory) {
   // console.log("$scope.context in FooterCtrl is:");
   // console.log($scope.context);
 
+
   console.log($scope.imageUrl);
 
   // Facebook
@@ -28,13 +29,13 @@ stayCation.controller('FooterCtrl', function FooterCtrl($scope, SaveFactory) {
             {
                method: 'feed',
                name: 'My Staycation',
-               picture: '$scope.imageUrl',
+               picture: SaveFactory.imageUrl,
                description: 'My staycation',
             });
         });
     });
-    console.log($scope.imageUrl);
 
+    console.log(SaveFactory.imageUrl);
 
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
