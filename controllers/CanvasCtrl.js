@@ -119,7 +119,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
 
         }, 1000 / 24);
             // loop through shapes from factory here
-            console.log(canvState.valid);
+            // console.log(canvState.valid);
 
       }, false);
     }, errorCallback);

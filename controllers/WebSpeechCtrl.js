@@ -124,10 +124,10 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
     recognition.onerror = function(event) {
       if (event.error === "not-allowed") {
         $scope.message = "I'm sorry, what was that?";
-        console.log("error not allowed");
+        // console.log("error not allowed");
       } else {
         $scope.message = "I'm sorry!! Something went wrong.";
-        console.log("other error");
+        // console.log("other error");
       }
 
       // Every custom event handler needs to apply its scope
@@ -136,7 +136,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
 
     recognition.onend = function() {
       $scope.recognizing = false;
-      console.log("recognition ended");
+      // console.log("recognition ended");
 
       // do more in here?
       // here's a hack to re-start recognition after the preset time limit
