@@ -14,28 +14,28 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
   // Preload some dummy items for now
   factory.items = [
     {
-      name: 'bubble',
+      name: 'cactus',
       xPosition: 0,
       yPosition: 0,
       width: 60,
       height: 60,
-      url: 'http://www.i2clipart.com/cliparts/9/2/6/b/clipart-bubble-926b.png'
+      url: 'http://www.i2clipart.com/cliparts/5/6/8/f/clipart-cactus-568f.png'
     },
     {
-      name: 'lei',
+      name: 'taco',
       xPosition: 0,
       yPosition: 0,
       width: 60,
       height: 60,
-      url: 'http://cfwc21.com/images/Decorations/Lei_Transparent_Flip.gif'
+      url: 'http://www.i2clipart.com/cliparts/9/3/4/c/clipart-taco-934c.png'
     },
     {
-      name: 'surfboard',
+      name: 'sombrero',
       xPosition: 0,
       yPosition: 0,
       width: 60,
       height: 60,
-      url: 'http://icons.iconarchive.com/icons/fasticon/surf/128/surfboard-2-icon.png'
+      url: 'http://www.i2clipart.com/cliparts/4/1/2/f/clipart-sombrero-dave-pena-01-412f.png'
     },
 
   ];
