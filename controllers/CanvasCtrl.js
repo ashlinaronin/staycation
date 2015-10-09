@@ -62,7 +62,11 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
     //listen for track events
     $scope.tracker.on('track', function(event)
     {
-      // background is 1st thing drawn
+      // for now, update the background image every frame
+      // eventually we want to check if it's changed in angular somehow
+      $scope.backgroundImg.src = ImageFactory.bg;
+
+      // then draw the background before anything else
       SaveFactory.context.drawImage($scope.backgroundImg, 0, 0);
 
       if ($scope.lastRect) {

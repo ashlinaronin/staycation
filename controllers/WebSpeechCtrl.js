@@ -36,6 +36,16 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
         // add a space between words
         var destination = $scope.chunks.slice(i+2).join(' ');
         console.log('going to: ' + destination);
+
+
+        // Repeat what i just said
+        var u = new SpeechSynthesisUtterance();
+        u.text = 'going to ' + destination;
+        u.lang = 'en-US';
+        u.rate = 1.0;
+        speechSynthesis.speak(u);
+
+
         $scope.ImageFactory.add(destination, 'bg');
 
         // We've found a bg, exit for loop here.
@@ -48,6 +58,15 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
     // if we didnt find a bg but we have chunks, add item here
     if (!foundBg && $scope.chunks) {
      console.log("adding item: " + $scope.final);
+
+     // Repeat what i just said
+     var u = new SpeechSynthesisUtterance();
+     u.text = 'enjoy this ' + $scope.final + '!';
+     u.lang = 'en-US';
+     u.rate = 1.0;
+     speechSynthesis.speak(u);
+
+
      $scope.ImageFactory.add($scope.final, 'item');
    } else {
     $scope.message = 'Empty query!';
@@ -102,12 +121,7 @@ stayCation.controller('WebSpeechCtrl', function WebSpeechCtrl($scope, ImageFacto
         $scope.interim = null;
         $scope.final = null;
 
-        // Repeat what i just said
-        var u = new SpeechSynthesisUtterance();
-        u.text = sentence;
-        u.lang = 'en-US';
-        u.rate = 1.0;
-        speechSynthesis.speak(u);
+
 
         // We're done, stop the voice recognition.
         // (Now we don't want to stop because it's continuous)
