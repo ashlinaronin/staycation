@@ -57,7 +57,6 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
     $scope.backgroundImg = new Image();
     $scope.backgroundImg.src = $scope.bg;
 
-    console.dir(SaveFactory.context);
 
     //listen for track events
     $scope.tracker.on('track', function(event)
@@ -111,10 +110,7 @@ stayCation.controller('CanvasCtrl', function CanvasCtrl($scope, ImageFactory, Sa
       // SaveFactory.context.clearRect(0, 0, SaveFactory.canvas.width, SaveFactory.canvas.height);
 
 
-
-
-    // }, errorCallback);
-  }); // end on track
+    }); // end on track
 
   }); // end document ready
 
