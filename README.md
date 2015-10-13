@@ -18,8 +18,7 @@ $ python -m SimpleHTTPServer
 * Enjoy!
 
 Technologies Used
-----------
-JavaScript, Angular, Angular UI-Router, jQuery, HTML, Bootstrap, CSS
+Node, Express, Angular, Angular UI-Router, jQuery, HTML, Bootstrap, CSS
 
 License
 ----------
