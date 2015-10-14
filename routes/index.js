@@ -108,7 +108,7 @@ router.get('/get-image/:type/:query', function(req, res, next) {
     // save the resulting image to downloads and return its filepath as json
     // so we can serve it up later.
     request(getReqUrl, function (googError, googResponse, googBody) {
-      if (!googError && googResponse.statusCode == 200) {
+      if (!googError && googResponse.statusCode == 200 && googBody.items) {
         returnedUrl = JSON.parse(googBody).items[0].link;
 
         // Actually download the file and return the local path
@@ -119,6 +119,7 @@ router.get('/get-image/:type/:query', function(req, res, next) {
         res.json({ localUrl: 'downloads/' + filename});
       } else {
         console.log(googError);
+        res.json({error: googError});
       }
     });
 });
