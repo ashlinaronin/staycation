@@ -11,11 +11,12 @@ var request = require('request');
 
 var router = express.Router();
 
+router.use(express.static('public'));
 // router.use(cors());
 
 // Set up file and download paths for test
 var file_url = 'http://www.contactmusic.com/pics/sn/20140531/backstreet_boys_at_chateau_310514_01/backstreet-boys-backstreet-boys-at-chateau_4225143.jpg';
-var DOWNLOAD_DIR = './downloads/';
+var DOWNLOAD_DIR = './public/downloads/';
 
 // Set up GET request to Google Custom Search API
 var customsearch = 'https://www.googleapis.com/customsearch/v1?key=';
@@ -57,6 +58,21 @@ var download_file_httpget = function(file_url) {
   });
 };
 
+var download_file = function(file_url) {
+  // Make a new directory for dl if it doesn't already exist
+  var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
+  var child = exec(mkdir, function(err, stdout, stderr) {
+    if (err) throw err;
+    else download_file_httpget(file_url);
+  });
+
+  var file_name = url.parse(file_url).pathname.split('/').pop();
+  console.log('file_name is ' + file_name);
+
+  // should we return anything here?
+  // return file_name;
+};
+
 
 
 // Make sure resources served from Express are available via CORS
@@ -77,12 +93,31 @@ router.get('/', function(req, res, next) {
 
 
 
-
 router.get('/image-dl-test', function(req,res,next) {
+  // Make a new directory for dl if it doesn't already exist
+  var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
+  var child = exec(mkdir, function(err, stdout, stderr) {
+    if (err) throw err;
+    else download_file_httpget(file_url);
+  });
 
-  // Serve this url back with Access-Control-Allow-Origin: * header
+  var file_name = url.parse(file_url).pathname.split('/').pop();
+  console.log('file_name is ' + file_name);
+  console.log('serving: ' + DOWNLOAD_DIR + file_name);
+
+
+  // just send the client the local link to the downloaded file
+  // so the CanvasCtrl can retrieve it with clean cross-origin headers
+  res.send('downloads/' + file_name);
+});
+
+
+// Serve this url back with Access-Control-Allow-Origin: * header
+// Cool but not exactly what we need because canvas won't be able to access
+// clean image files from here
+router.get('/image-pipe-test/:fileUrl', function(req, res, next) {
   request
-    .get(file_url)
+    .get(req.params.fileUrl)
     .on('response', function(response) {
       console.log(response.statusCode);
       console.dir(response.headers);
@@ -95,54 +130,44 @@ router.get('/image-dl-test', function(req,res,next) {
 
 /* GET /get-image/:type/:query
 ** Take a query and a type (bg or item) and grab the image from google.
-** Return it as an image file with proper CORS headers to avoid canvas issues. */
-router.get('/get-image/:type/:query', function(request, response, next) {
+** Save the image as a file and return the local path to it so we can
+** serve it later as an image file with proper CORS headers to avoid canvas issues. */
+router.get('/get-image/:type/:query', function(req, res, next) {
 
     // Set image size of query depending whether we are looking for item or bg
-    if (request.params.type == 'item') {
+    if (req.params.type == 'item') {
       imageSize = 'small';
-    } else if (request.params.type == 'bg') {
+    } else if (req.params.type == 'bg') {
       imageSize = 'large';
     }
 
     // Set up get req URL
-    var getReq = customsearch + apiKey + '&cx=' + cx + '&q=' + request.params.query +
+    var getReqUrl = customsearch + apiKey + '&cx=' + cx + '&q=' + req.params.query +
       '&num=' + numResults + '&fields=' + fields +
       '&searchType=image&fileType=jpg&imgSize=' + imageSize + '&alt=json' +
       '&imgType=' + imgType;
 
     var returnedUrl = null;
 
-    // http request node-style
-    var callback = function(response) {}
+    // Run the GET request to Google Custom Search API,
+    // save the resulting image to downloads and return its filepath as json
+    // so we can serve it up later
+    request(getReqUrl, function (googError, googResponse, googBody) {
+      if (!googError && googResponse.statusCode == 200) {
+        console.log(googBody);
 
+        var parsed = JSON.parse(googBody);
+        returnedUrl = parsed.items[0].link;
+        console.log('returnedUrl: ' + returnedUrl);
 
+        // Actually download the file and return the local path
+        download_file(returnedUrl);
 
-
-    // Run the API GET request and save the url
-    $http.get(getReq).then(function successCallback (response) {
-      returnedUrl = response.data.items[0].link;
-      console.log('returnedUrl: ' + returnedUrl);
-
-      // if (request.params.type == 'item') {
-      //   factory.items.push( { name: query, url: returnedUrl } );
-      // } else if (request.params.type == 'bg') {
-      //   factory.bg = returnedUrl;
-      // }
-    }, function errorCallback (response) {
-      alert("Error getting Google images -- " +
-        response.data.error.code + ': ' +
-        response.data.error.errors[0].message);
+        // Send path as a JSON object with one key/value pair
+        var file_name = url.parse(returnedUrl).pathname.split('/').pop();
+        res.json({ localUrl: 'downloads/' + file_name});
+      }
     });
-
-  response.render('download-test', {
-    title: 'dl test',
-    type: request.params.type,
-    query: request.params.query,
-    returnedUrl: returnedUrl
-  });
-
-
 });
 
 module.exports = router;
