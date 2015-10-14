@@ -1,5 +1,6 @@
 var express = require('express');
 
+var cors = require('cors');
 var fs = require('fs');
 var url = require('url');
 var http = require('http');
@@ -52,6 +53,8 @@ router.get('/', function(req, res, next) {
 });
 
 
+
+
 router.get('/image-dl-test', function(req,res,next) {
   // Make a new directory for dl if it doesn't already exist
   var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
@@ -60,9 +63,23 @@ router.get('/image-dl-test', function(req,res,next) {
     else download_file_httpget(file_url);
   });
 
-  res.render('download-test', { title: 'Download Test'});
+  var file_name = url.parse(file_url).pathname.split('/').pop();
 
+  console.log('serving: ' + DOWNLOAD_DIR + file_name);
 
+  var thing = res.sendFile(DOWNLOAD_DIR + file_name);
+});
+
+/* GET /get-image/:type/:query
+** Take a query and a type (bg or item) and grab the image from google.
+** Return it as an image file with proper CORS headers to avoid canvas issues. */
+router.get('/get-image/:type/:query', function(request, response, next) {
+
+  response.render('download-test', {
+    title: 'dl test',
+    type: request.params.type,
+    query: request.params.query
+  });
 });
 
 module.exports = router;
