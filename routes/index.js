@@ -117,6 +117,8 @@ router.get('/get-image/:type/:query', function(req, res, next) {
 
         // Send path as a JSON object with one key/value pair
         res.json({ localUrl: 'downloads/' + filename});
+      } else {
+        console.log(googError);
       }
     });
 });
