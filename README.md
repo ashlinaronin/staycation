@@ -3,7 +3,7 @@ StayCation
 
 By Sam Martinez, Kyle Pratuch, Kelli Margaret, Mitch Rivet, Micah Courey and Ashlin Aronin, 9-Oct-2015
 
-A voice-controller travel simulator in AngularJS. Using Google Web Speech API, Google Custom Search API, HTML5 Canvas, tracking.js and many more external resources. Currently experiencing some difficulty with saving cross-origin sourced images.
+A voice-controller travel simulator in AngularJS. Using Node, Express, Google Web Speech API, Google Custom Search API, HTML5 Canvas, tracking.js and many more external resources.
 
 Setup
 ----------
