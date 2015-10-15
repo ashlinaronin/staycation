@@ -121,8 +121,8 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
     // Temporarily disable Google Images so we don't hit API limit
     // Run the API GET request and save the url
     $http.get(getReqUrl).then(function successCallback (response) {
-      debugger;
-      if (data.localUrl) {
+
+      if (response.data.localUrl) {
         returnedUrl = response.data.localUrl;
       } else {
         console.log('google images get req on server gave back an error to angular');
@@ -135,7 +135,7 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
       } else if (type == 'bg') {
         factory.bg = returnedUrl;
       }
-      debugger;
+
     }, function errorCallback (response) {
       alert("Error getting Google images -- " +
         response.data.error.code + ': ' +

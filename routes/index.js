@@ -112,7 +112,6 @@ router.get('/get-image/:type/:query', function(req, res, next) {
         returnedUrl = JSON.parse(googBody).items[0].link;
 
         // Actually download the file and return the local path
-        // var queryName = req.params.query;
         var filename = download_file(returnedUrl);
 
         // Send path as a JSON object with one key/value pair
