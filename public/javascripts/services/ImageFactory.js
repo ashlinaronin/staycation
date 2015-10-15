@@ -95,16 +95,16 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
   };
 
   factory.add = function(query, type) {
-    // Set up GET request to Google Custom Search API
-    var customsearch = 'https://www.googleapis.com/customsearch/v1?key=';
-    var apiKey = 'AIzaSyDB5cOgPfH_VSA7yRcHiF3MGba4Wx_2a7c';
-    var cx = '014144397479220879650:sd7rzvq2hog';
-    var fields = 'items(link,snippet)';
-
+    // don't need this stuff anymore now that we're doing api calls server-side
+    // // Set up GET request to Google Custom Search API
+    // var customsearch = 'https://www.googleapis.com/customsearch/v1?key=';
+    // var apiKey = 'AIzaSyDB5cOgPfH_VSA7yRcHiF3MGba4Wx_2a7c';
+    // var cx = '014144397479220879650:sd7rzvq2hog';
+    // var fields = 'items(link,snippet)';
     // look for all types of images for now
-    var imgType = 'clipart';
-    var numResults = 1;
-    var imageSize;
+    // var imgType = 'clipart';
+    // var numResults = 1;
+    // var imageSize;
 
     // Set image size of query depending whether we are looking for item or bg
     if (type == 'item') {
@@ -113,32 +113,33 @@ stayCation.factory('ImageFactory', function ImageFactory($http) {
       imageSize = 'large';
     }
 
-    var getReq = customsearch + apiKey + '&cx=' + cx + '&q=' + query +
-      '&num=' + numResults + '&fields=' + fields +
-      '&searchType=image&fileType=jpg&imgSize=' + imageSize + '&alt=json' +
-      '&imgType=' + imgType;
-
+    // changed getrequrl to be localhost route we created in express
+    var getReqUrl = '/get-image/' + type + '/' + query;
     var returnedUrl = null;
+    console.log('getReqUrl in angular: ' + getReqUrl);
 
     // Temporarily disable Google Images so we don't hit API limit
     // Run the API GET request and save the url
-    $http.get(getReq).then(function successCallback (response) {
-      returnedUrl = response.data.items[0].link;
+    $http.get(getReqUrl).then(function successCallback (response) {
+      debugger;
+      if (data.localUrl) {
+        returnedUrl = response.data.localUrl;
+      } else {
+        console.log('google images get req on server gave back an error to angular');
+      }
 
-      // factory.checkCors(returnedUrl);
-      // debugger;
-      console.log(returnedUrl);
+      console.log('returnedUrl in angular: ' + returnedUrl);
 
       if (type == 'item') {
         factory.items.push( { name: query, url: returnedUrl } );
       } else if (type == 'bg') {
         factory.bg = returnedUrl;
       }
+      debugger;
     }, function errorCallback (response) {
       alert("Error getting Google images -- " +
         response.data.error.code + ': ' +
         response.data.error.errors[0].message);
-
     });
 
 

@@ -103,12 +103,12 @@ router.get('/get-image/:type/:query', function(req, res, next) {
       '&searchType=image&fileType=jpg&imgSize=' + imageSize + '&alt=json' +
       '&imgType=' + imgType;
 
-
     // Run the GET request to Google Custom Search API,
     // save the resulting image to downloads and return its filepath as json
     // so we can serve it up later.
     request(getReqUrl, function (googError, googResponse, googBody) {
-      if (!googError && googResponse.statusCode == 200 && googBody.items) {
+
+      if (!googError && googResponse.statusCode == 200 && googBody) {
         returnedUrl = JSON.parse(googBody).items[0].link;
 
         // Actually download the file and return the local path
@@ -118,7 +118,6 @@ router.get('/get-image/:type/:query', function(req, res, next) {
         // Send path as a JSON object with one key/value pair
         res.json({ localUrl: 'downloads/' + filename});
       } else {
-        console.log(googError);
         res.json({error: googError});
       }
     });
